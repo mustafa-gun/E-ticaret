@@ -1,0 +1,80 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.container {
+    background-color: #f3f3f3;
+}
+
+.placeImage {
+    width: 100%;
+    height: 250px;
+}
+
+.brandLogo {
+    width: 100%;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-color: rgb(0 0 0 / 60%);
+    border-radius: 50%;
+}
+
+.flex {
+    display: flex;
+}
+
+.product {
+    background-color: #fff;
+}
+
+.randomProduct {
+    width: auto;
+    max-height: 120px;
+    align-items: center
+}
+
+.productOfDay {
+    width: auto;
+    max-height: 120px;
+}
+
+footerlink a {
+    color: #c5c5c5 !important;
+    text-decoration: none;
+}
+
+    footerlink a:hover {
+        color: #e4e4e4 !important;
+    }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.input-group {
+    width: 70%;
+    margin: auto;
+}
+
+.ms-n5 {
+    margin-left: -50px;
+}
+
+#search-button:hover {
+    color: #565e64;
+    text-shadow: 0px 1px 5px #000;
+}
