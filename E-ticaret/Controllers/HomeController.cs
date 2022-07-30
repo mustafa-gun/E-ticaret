@@ -1,7 +1,6 @@
 ﻿using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace E_ticaret.Controllers
 {
