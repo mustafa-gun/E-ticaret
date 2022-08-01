@@ -26,17 +26,20 @@ namespace E_ticaret.Controllers
 
             var _anaMenu = new List<AnaMenu>
             {
-                new AnaMenu { MenuId = 1, MenuName = "Elektronik", MenuLink = "/Elektronik" ,
+                new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "/Elektronik" ,
                     AltMenuler = new List<AltMenu>(){
-                        new AltMenu { DropdownId = 1, DropdownName = "Bilgisayar", DropdownLink = "/Elektronik/Bilgisayar"},
-                        new AltMenu { DropdownId = 2, DropdownName = "Akıllı Telefon", DropdownLink = "/Elektronik/Telefon"},
-                        new AltMenu { DropdownId = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"} 
+                        new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "/Elektronik/Bilgisayar"},
+                        new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "/Elektronik/Telefon"},
+                        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"}
                     }
                 },
-                new AnaMenu { MenuId = 2, MenuName = "Moda", MenuLink = "/Moda", AltMenuler = new List<AltMenu>()},
-                new AnaMenu { MenuId = 3, MenuName = "Ev, Yaşam", MenuLink = "/EvYasam" , AltMenuler = new List<AltMenu>(){ new AltMenu { DropdownId = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"} } },
-                new AnaMenu { MenuId = 4, MenuName = "Yapı Market", MenuLink = "/YapiMarket" , AltMenuler = new List<AltMenu>()},
-                new AnaMenu { MenuId = 5, MenuName = "Spor Outdoor", MenuLink = "/Spor" , AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "/Moda", AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "/EvYasam" , AltMenuler = new List<AltMenu>(){
+                    new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"}
+                    }
+                },
+                new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "/YapiMarket" , AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "/Spor" , AltMenuler = new List<AltMenu>()},
             };
 
             //var _altMenu = new List<AltMenu>
@@ -47,11 +50,11 @@ namespace E_ticaret.Controllers
             //};
 
             //MenuItems navbar = new MenuItems { AnaMenuItem = _anaMenu, AltMenuItem = _altMenu };
-            List<MenuItems> navbar = new List<MenuItems>();
+            List<MenuItem> navbar = new List<MenuItem>();
 
             for (int i = 0; i < _anaMenu.Count; i++)
             {
-                navbar.Add(new MenuItems(_anaMenu[i]));
+                navbar.Add(new MenuItem(_anaMenu[i]));
             }
 
 

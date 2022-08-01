@@ -1,9 +1,9 @@
 ﻿namespace E_ticaret.Models
 {
-    public class MenuItems
+    public class MenuItem
     {
 
-        public MenuItems(AnaMenu _anaMenuItem)
+        public MenuItem(AnaMenu _anaMenuItem)
         {
             AnaMenuItem = _anaMenuItem;
         }
