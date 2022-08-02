@@ -1,0 +1,18 @@
+﻿@model List<E_ticaret.Models.MenuItem>
+@{
+    Layout = null;
+    var name = Context.Request.Query["name"].ToString();
+    var id = Context.Request.Query["id"].ToString();
+}
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div>
+            <a href="/menu?id=@item.AnaMenuItem.Id&name=@item.AnaMenuItem.MenuName">@item.AnaMenuItem.MenuName</a>
+        </div>
+    }
+</div>
+
+iSİM: @name  <br />
+Id: @id 

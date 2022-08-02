@@ -1,25 +1,40 @@
-﻿@model E_ticaret.Models.StudentDetailsViewModel
+﻿@*@model List<E_ticaret.Models.StudentDetailsViewModel>
 @{
     //Layout = "_VeriTasimaLayout";
 }
 
 <html>
-    <head>
-        <title>@Model.Title</title>
-    </head>
-    <body>
-        <h1>@Model.Header</h1>
+<head>
+    <title>@Model.Title</title>
+</head>
+<body>
+    <h1>@Model.Header</h1>
 
-<p>ViewData ile veri taşıma: @ViewData["Data1"]</p>
-<p>ViewBag ile veri taşıma: @ViewBag.Data2</p>
-<p>TempData ile veri taşıma: @TempData["Data3"]</p>
-<p>ViewBag ile veri taşıma (Tarih): @ViewBag.CurrentDate</p>
-<p>Controller'dan ViewBag ile taşınan Rnd1 verisi (Random sayı): @ViewBag.Rnd1</p>
+    <p>ViewData ile veri taşıma: @ViewData["Data1"]</p>
+    <p>ViewBag ile veri taşıma: @ViewBag.Data2</p>
+    <p>TempData ile veri taşıma: @TempData["Data3"]</p>
+    <p>ViewBag ile veri taşıma (Tarih): @ViewBag.CurrentDate</p>
+    <p>Controller'dan ViewBag ile taşınan Rnd1 verisi (Random sayı): @ViewBag.Rnd1</p>
 
-<h1>ViewModel ile veri taşıma: </h1>
-<div>
-    Student Id: @Model.Student.StudentId
-</div>
+    <h1>ViewModel ile veri taşıma: </h1>
+    @foreach (var item in Model)
+    {
+        <div>
+            <div>Student Id  :  @item.Student.StudentId</div>
+            <div>Student Id  :  @item.Student.Name</div>
+            <div>Student Id  :  @item.Student.Branch</div>
+            <div>Student Id  :  @item.Student.Section</div>
+            <div>Student Id  :  @item.Student.Gender</div>
+        </div>
+        <div>
+            <div>Student Id  :  @item.Student.StudentId</div>
+            <div>Student Id  :  @item.Student.Name</div>
+            <div>Student Id  :  @item.Student.Branch</div> 
+        </div>
+    }
+    <div>
+        Student Id: @Model.Student.StudentId
+    </div>
     <div>
         Name : @Model.Student.Name
     </div>
@@ -46,5 +61,5 @@
     <div>
         Pin : @Model.Address.Pin
     </div>
-    </body>
-</html>
+</body>
+</html>*@

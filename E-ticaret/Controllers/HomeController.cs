@@ -23,24 +23,29 @@ namespace E_ticaret.Controllers
             ViewBag.CurrentDate = CurrentDate.ToString("ddMMyyyy");
 
 
-
             var _anaMenu = new List<AnaMenu>
             {
-                new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "/Elektronik" ,
+                new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
                     AltMenuler = new List<AltMenu>(){
-                        new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "/Elektronik/Bilgisayar"},
-                        new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "/Elektronik/Telefon"},
-                        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"}
+                        new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
+                        new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
+                        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
                     }
                 },
-                new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "/Moda", AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "/EvYasam" , AltMenuler = new List<AltMenu>(){
-                    new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon"}
+                new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
+                    new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
                     }
                 },
-                new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "/YapiMarket" , AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "/Spor" , AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
+                new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor" , AltMenuler = new List<AltMenu>()},
             };
+            List<MenuItem> navbar = new List<MenuItem>();
+            
+            for (int i = 0; i < _anaMenu.Count; i++)
+            {
+                navbar.Add(new MenuItem(_anaMenu[i]));
+            }
 
             //var _altMenu = new List<AltMenu>
             //{
@@ -50,15 +55,7 @@ namespace E_ticaret.Controllers
             //};
 
             //MenuItems navbar = new MenuItems { AnaMenuItem = _anaMenu, AltMenuItem = _altMenu };
-            List<MenuItem> navbar = new List<MenuItem>();
-
-            for (int i = 0; i < _anaMenu.Count; i++)
-            {
-                navbar.Add(new MenuItem(_anaMenu[i]));
-            }
-
-
-
+            
             //MenuItems item = new MenuItems(new AnaMenu(), new AltMenu());
 
 
@@ -70,10 +67,6 @@ namespace E_ticaret.Controllers
             return View();
         }
 
-        public IActionResult Elektronik()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

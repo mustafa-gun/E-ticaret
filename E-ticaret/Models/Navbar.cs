@@ -16,4 +16,10 @@
         public string DropdownName { get; set; }
         public string DropdownLink { get; set; }
     }
+
+    public class Test
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+    }
 }

@@ -78,3 +78,14 @@ footerlink a {
     color: #565e64;
     text-shadow: 0px 1px 5px #000;
 }
+
+.table th {
+    text-align: center;
+}
+
+.table {
+    border-radius: 5px;
+    width: 50%;
+    margin: auto;
+    float: none;
+}
