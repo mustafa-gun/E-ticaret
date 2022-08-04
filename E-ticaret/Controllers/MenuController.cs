@@ -31,21 +31,24 @@ namespace E_ticaret.Controllers
             };
             return altMenus;
         }
+        
+        public ExpandoObject GetAllMenu()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+            return mymodel;
+        }
 
         public IActionResult Index()
         {
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
-            return View(mymodel);
+            var getMenu = GetAllMenu();
+            return View(getMenu);
         }
-        public IActionResult Detay(int id)
+        public IActionResult Detay()
         {
-            id.ToString();
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
-            return View(mymodel);
+            var getMenu = GetAllMenu();
+            return View(getMenu);
         }
     }
 }

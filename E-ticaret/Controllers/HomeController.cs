@@ -48,12 +48,20 @@ namespace E_ticaret.Controllers
             {
                 new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
                 new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 3, AltMenuName = "Aksesuar", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 4, AltMenuName = "Aksesuar", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 5, AltMenuName = "Aksesuar", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 6, AltMenuName = "Aksesuar", AnaMenuId = 4 }
+                new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
             };
             return altMenus;
+        }
+
+        public ExpandoObject GetAllMenu()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+            return mymodel;
         }
         public IActionResult Index()
         {
@@ -101,15 +109,14 @@ namespace E_ticaret.Controllers
             //MenuItems item = new MenuItems(new AnaMenu(), new AltMenu());
 
 
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
-            return View(mymodel);
+            var getMenu = GetAllMenu();
+            return View(getMenu);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            var getMenu = GetAllMenu();
+            return View(getMenu);   
         }
 
 
