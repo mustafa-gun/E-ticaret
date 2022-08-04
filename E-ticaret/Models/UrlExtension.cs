@@ -11,7 +11,7 @@ public static class UrlExtension
         url = url.Trim();
         if (url.Length > 100)
         {
-            url = url.Substring(0, 100);
+            url = url[..100];// Substring
         }
         url = url.Replace("İ", "I");
         url = url.Replace("ı", "i");

@@ -1,6 +1,7 @@
 ﻿using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Dynamic;
 
 namespace E_ticaret.Controllers
 {
@@ -12,7 +13,48 @@ namespace E_ticaret.Controllers
         {
             _logger = logger;
         }
+        //static readonly IList<AnaMenu> menuList = new List<AnaMenu>
+        //{
+        //    new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
+        //            AltMenuler = new List<AltMenu>(){
+        //                new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
+        //                new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
+        //                new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
+        //            }
+        //        },
+        //        new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
+        //        new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
+        //            new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"},
+        //            }
+        //        },
+        //        new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
+        //        new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor-outdoor" , AltMenuler = new List<AltMenu>()},
+        //};
+        private static List<Menu> GetMenus()
+        {
+            List<Menu> menu = new()
+            {
+                new Menu { MenuId = 1, MenuName = "Elektronik" },
+                new Menu { MenuId = 2, MenuName = "Moda" },
+                new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
+                new Menu { MenuId = 4, MenuName = "Outdooe" }
+            };
+            return menu;
+        }
 
+        public List<AltMenu> GetAltMenus()
+        {
+            List<AltMenu> altMenus = new()
+            {
+                new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
+                new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 3, AltMenuName = "Aksesuar", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 4, AltMenuName = "Aksesuar", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Aksesuar", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 6, AltMenuName = "Aksesuar", AnaMenuId = 4 }
+            };
+            return altMenus;
+        }
         public IActionResult Index()
         {
             Random rnd = new();
@@ -23,29 +65,29 @@ namespace E_ticaret.Controllers
             ViewBag.CurrentDate = CurrentDate.ToString("ddMMyyyy");
 
 
-            var _anaMenu = new List<AnaMenu>
-            {
-                new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
-                    AltMenuler = new List<AltMenu>(){
-                        new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
-                        new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
-                        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
-                    }
-                },
-                new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
-                    new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
-                    }
-                },
-                new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor" , AltMenuler = new List<AltMenu>()},
-            };
-            List<MenuItem> navbar = new List<MenuItem>();
-            
-            for (int i = 0; i < _anaMenu.Count; i++)
-            {
-                navbar.Add(new MenuItem(_anaMenu[i]));
-            }
+            //var _anaMenu = new List<AnaMenu>
+            //{
+            //    new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
+            //        AltMenuler = new List<AltMenu>(){
+            //            new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
+            //            new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
+            //            new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
+            //        }
+            //    },
+            //    new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
+            //    new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
+            //        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
+            //        }
+            //    },
+            //    new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
+            //    new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor" , AltMenuler = new List<AltMenu>()},
+            //};
+            //List<MenuItem> navbar = new List<MenuItem>();
+
+            //for (int i = 0; i < _anaMenu.Count; i++)
+            //{
+            //    navbar.Add(new MenuItem(_anaMenu[i]));
+            //}
 
             //var _altMenu = new List<AltMenu>
             //{
@@ -55,11 +97,14 @@ namespace E_ticaret.Controllers
             //};
 
             //MenuItems navbar = new MenuItems { AnaMenuItem = _anaMenu, AltMenuItem = _altMenu };
-            
+
             //MenuItems item = new MenuItems(new AnaMenu(), new AltMenu());
 
 
-            return View(navbar);
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+            return View(mymodel);
         }
 
         public IActionResult Privacy()

@@ -1,18 +1,45 @@
-﻿@model List<E_ticaret.Models.MenuItem>
+﻿@using E_ticaret
+@model dynamic
 @{
-    Layout = null;
-    var name = Context.Request.Query["name"].ToString();
-    var id = Context.Request.Query["id"].ToString();
+    ViewBag.Title = "Home Page";
 }
+<h2>@ViewBag.Message</h2>
 
-<div>
-    @foreach (var item in Model)
+<p><b>Teacher List</b></p>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Name</th>
+    </tr>
+    @if (Model != null)
     {
-        <div>
-            <a href="/menu?id=@item.AnaMenuItem.Id&name=@item.AnaMenuItem.MenuName">@item.AnaMenuItem.MenuName</a>
-        </div>
+        <tr>
+            @foreach (Menu menu in Model.Menu)
+            {
+                <td><a href="/menu/detay/@menu.MenuId">@menu.MenuName</a></td>
+            }
+        </tr>
     }
-</div>
 
-iSİM: @name  <br />
-Id: @id 
+</table>
+
+<p><b>Student List</b></p>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Enrollment No</th>
+    </tr>
+    @*@foreach (AltMenu altMenu in Model.AltMenu)
+    {
+        <tr>
+            <td>@altMenu.AltMenuId</td>
+            <td>@altMenu.AltMenuName</td>
+            <td>@altMenu.AnaMenuId</td>
+        </tr>
+    }*@
+</table>

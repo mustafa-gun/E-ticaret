@@ -1,5 +1,36 @@
-﻿@{
-    Layout = null;
+﻿@model dynamic
+@{
+    object getMenuId = Context.Request.RouteValues["id"];
+    object getDropdownId = Context.Request.RouteValues["dropdownId"];
+    int menuId = Convert.ToInt32(getMenuId);
+    int dropdownId = Convert.ToInt32(getDropdownId);
+
 }
 
-Testtt
+<p>Menu Id: @Context.Request.RouteValues["id"]</p>
+<p>Alt Menu Id: @Context.Request.RouteValues["dropdownId"]</p>
+
+@if (Model != null)
+{
+    @foreach (Menu item in Model)
+    {
+        @if (item.MenuId == menuId)
+        {
+            <h1>@item.MenuName</h1>
+            @if (dropdownId != 0)
+            {
+                <h2>Alt Menüler</h2>
+                @foreach (AltMenu altMenu in Model)
+                {
+                    @if (item.MenuId == altMenu.AnaMenuId)
+                    {
+                        <h3>@altMenu.AltMenuName</h3>
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+

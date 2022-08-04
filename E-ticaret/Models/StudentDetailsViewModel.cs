@@ -1,6 +1,6 @@
 ﻿namespace E_ticaret.Models
 {
-    public class Student
+    public class StudentOld
     {
         public int StudentId { get; set; }
         public string Branch { get; set; }
@@ -18,7 +18,7 @@
     }
     public class StudentDetailsViewModel
     {
-        public Student Student { get; set; }
+        public StudentOld Student { get; set; }
         public Address Address { get; set; }
         public string Title { get; set; }
         public string Header { get; set; }

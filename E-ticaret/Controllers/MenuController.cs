@@ -1,114 +1,51 @@
-﻿using System.Web;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using E_ticaret.Models;
-using Microsoft.AspNetCore.Http;
+using System.Dynamic;
 
 namespace E_ticaret.Controllers
 {
     public class MenuController : Controller
     {
-        public string List(string id)
+        private static List<Menu> GetMenus()
         {
-
-            return id;
+            List<Menu> menu = new()
+            {
+                new Menu { MenuId = 1, MenuName = "Elektronik" },
+                new Menu { MenuId = 2, MenuName = "Moda" },
+                new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
+                new Menu { MenuId = 4, MenuName = "Outdooe" }
+            };
+            return menu;
         }
 
-        [HttpGet]
-        [Route("detay")]
-        public IActionResult Detay(string id)
+        public List<AltMenu> GetAltMenus()
         {
-
-
-            //List<AnaMenu> _anaMenu = new()
-            //    {
-            //        new AnaMenu { Id = 1, MenuName = "MenuName", MenuLink = "menulink" },
-            //        new AnaMenu { Id = 2, MenuName = "MenuName", MenuLink = "menulink" },
-            //        new AnaMenu { Id = 3, MenuName = "MenuName", MenuLink = "menulink" },
-            //        new AnaMenu { Id = 4, MenuName = "MenuName", MenuLink = "menulink" },
-            //    };
-
-            //id = Request.Query["id"];
-
-
-            //string category = Request.Query["detay"];
-
-            return View();
+            List<AltMenu> altMenus = new()
+            {
+                new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
+                new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
+            };
+            return altMenus;
         }
-        //        static readonly List<AnaMenu> _anaMenu = new List<AnaMenu>()
-        //        {
-        //            new AnaMenu { Id = 1, MenuName = "MenuName", MenuLink = "menulink" },
-        //            new AnaMenu { Id = 2, MenuName = "MenuName", MenuLink = "menulink" },
-        //            new AnaMenu { Id = 3, MenuName = "MenuName", MenuLink = "menulink" },
-        //            new AnaMenu { Id = 4, MenuName = "MenuName", MenuLink = "menulink" },
-        //        };
 
-        //        static readonly List<AltMenu> _altMenu = new List<AltMenu>()
-        //        {
-        //            new AltMenu { Id = 1, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 1},
-        //            new AltMenu { Id = 2, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 1 },
-        //            new AltMenu { Id = 3, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 2 },
-        //            new AltMenu { Id = 4, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 3 },
-        //        };
-
-
-        //        
-        //        [Route("menu")]
-        [HttpGet]
         public IActionResult Index()
         {
-
-            var _anaMenu = new List<AnaMenu>
-            {
-                new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
-                    AltMenuler = new List<AltMenu>(){
-                        new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
-                        new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
-                        new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
-                    }
-                },
-                new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
-                    new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"},
-                    }
-                },
-                new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
-                new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor-outdoor" , AltMenuler = new List<AltMenu>()},
-            };
-
-            List<MenuItem> navbar = new List<MenuItem>();
-
-            for (int i = 0; i < _anaMenu.Count; i++)
-            {
-                navbar.Add(new MenuItem(_anaMenu[i]));
-            }
-
-            
-            //string name = "";
-            //if (!String.IsNullOrEmpty(HttpContext.Request.Query["name"]))
-                //name = HttpContext.Request.Query["name"];
-            //"Name from query string: " + name
-            return View(navbar);
-
-            //            List<MenuItem> menus = new();
-
-            //            List<AnaMenu> _anaMenu = new List<AnaMenu>()
-            //            {
-            //                new AnaMenu { Id = 1, MenuName = "MenuName", MenuLink = "menulink" },
-            //                new AnaMenu { Id = 2, MenuName = "MenuName", MenuLink = "menulink" },
-            //                new AnaMenu { Id = 3, MenuName = "MenuName", MenuLink = "menulink" },
-            //                new AnaMenu { Id = 4, MenuName = "MenuName", MenuLink = "menulink" },
-            //            };
-
-            //            List<AltMenu> _altMenu = new List<AltMenu>()
-            //            {
-            //                new AltMenu { Id = 1, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 1},
-            //                new AltMenu { Id = 2, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 1 },
-            //                new AltMenu { Id = 3, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 2 },
-            //                new AltMenu { Id = 4, DropdownName = "DropdownName", DropdownLink = "dropdownlink", MenuId = 3 },
-            //            };
-
-            //return View();
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+            return View(mymodel);
         }
-
+        public IActionResult Detay(int id)
+        {
+            id.ToString();
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+            return View(mymodel);
+        }
     }
 }

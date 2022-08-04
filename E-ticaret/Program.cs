@@ -15,15 +15,16 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(name: "detay",
-                pattern: "{controller=Menu}/{action=Detay}/{id?}");
-
-//app.MapControllerRoute(name: "detay",
-//                pattern: "{controller}/{menuId}/{id}",
-//                defaults: new { controller = "Menu", action = "Detay", menuId = "", id = "" });
-
 app.MapControllerRoute(name: "default",
                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(name: "menu",
+                pattern: "{controller=Menu}/{action=Index}/{id?}",
+                defaults: new { controller = "Menu", action = "Index"});
+
+app.MapControllerRoute(name: "detay",
+                pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
+                defaults: new { controller = "Menu", action = "Detay" });
 
 
 
