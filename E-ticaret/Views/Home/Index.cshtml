@@ -1,9 +1,73 @@
 ﻿@model dynamic
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "E-Ticaret";
 }
 
+@*@if (Model != null)
+{
+    if (ViewBag.Menu.Values != null && ViewBag.Count()>0)
+    {
+        @foreach (var item in TempData["MenuData"])
+        {
+            <div>MenuId:   @item.MenuId</div>
+            <div>Menu Name: @item.MenuName</div>
+        }
+    }
+}else {<p>.</p>}*@
+<ul class="navbar-nav">
+
+    @if (Model != null)
+    {
+        @foreach (Menu menu in Model.Menu)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" asp-controller="menu" asp-action="detay" asp-route-id="@menu.MenuId">@menu.MenuName</a>
+                <ul class="dropdown-menu">
+                    @foreach (AltMenu altMenu in Model.AltMenu)
+                    {
+                        @if (menu.MenuId == altMenu.AnaMenuId)
+                        {
+                            <li>
+                                <a class="dropdown-item" href="/menu/detay/@menu.MenuId/@altMenu.AltMenuId">@altMenu.AltMenuName</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    }
+</ul>
+<div>
+    <ul>
+
+        @*@foreach (var item in Model)
+        {
+        @if (item != null)
+        {
+        if (item.AnaMenuItem.AltMenuler.Count == 0)
+        {
+        <li class="nav-item">
+        <a class="nav-link" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id">@item.AnaMenuItem.MenuName</a>
+        </li>
+        }
+        else
+        {
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id">@item.AnaMenuItem.MenuName</a>
+        <ul class="dropdown-menu">
+        @foreach (var altMenu in item.AnaMenuItem.AltMenuler)
+        {
+        <li>
+        <a class="dropdown-item" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id/@altMenu.Id">@altMenu.DropdownName</a>
+        </li>
+        }
+        </ul>
+        </li>
+        }
+        }
+        }*@
+    </ul>
+</div>
 <div class="container py-4 mt-4">
     <div class="container">
         <div class="row">
