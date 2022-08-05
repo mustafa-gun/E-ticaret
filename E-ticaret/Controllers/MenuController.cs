@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using E_ticaret.Models;
+﻿using E_ticaret.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 
 namespace E_ticaret.Controllers
@@ -26,29 +26,80 @@ namespace E_ticaret.Controllers
                 new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
                 new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
                 new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
                 new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
             };
             return altMenus;
         }
-        
-        public ExpandoObject GetAllMenu()
+
+        [HttpPost]
+        public ActionResult GetAllMenu()
         {
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = GetMenus();
             mymodel.AltMenu = GetAltMenus();
+
+            //return mymodel;
+            return RedirectToAction("Index", "Home", mymodel);
+        }
+        [HttpPost]
+        public ExpandoObject Navigation()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
+
             return mymodel;
         }
 
         public IActionResult Index()
         {
-            var getMenu = GetAllMenu();
+            var getMenu = Navigation();
             return View(getMenu);
         }
-        public IActionResult Detay()
-        {
-            var getMenu = GetAllMenu();
-            return View(getMenu);
-        }
+
+
+        //public ActionResult Index()
+        //{
+        //    var _anaMenu = new List<AnaMenu>()
+        //    {
+        //        new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
+        //            AltMenuler = new List<AltMenu>(){
+        //                new AltMenu { Id = 1, DropdownName = "Bilgisayar", DropdownLink = "bilgisayar"},
+        //                new AltMenu { Id = 2, DropdownName = "Akıllı Telefon", DropdownLink = "akilli-telefon"},
+        //                new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
+        //            }
+        //        },
+        //        new AnaMenu { Id = 2, MenuName = "Moda", MenuLink = "moda", AltMenuler = new List<AltMenu>()},
+        //        new AnaMenu { Id = 3, MenuName = "Ev, Yaşam", MenuLink = "ev-yasam" , AltMenuler = new List<AltMenu>(){
+        //            new AltMenu { Id = 3, DropdownName = "Televizyon", DropdownLink = "televizyon"}
+        //            }
+        //        },
+        //        new AnaMenu { Id = 4, MenuName = "Yapı Market", MenuLink = "yapi-market" , AltMenuler = new List<AltMenu>()},
+        //        new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor" , AltMenuler = new List<AltMenu>()},
+        //    };
+        //    List<MenuItem> navbar = new List<MenuItem>();
+
+        //    for (int i = 0; i < _anaMenu.Count; i++)
+        //    {
+        //        navbar.Add(new MenuItem(_anaMenu[i]));
+        //    }
+
+        //    string jsonString = System.Text.Json.JsonSerializer.Serialize(_anaMenu).ToString();
+        //    Console.WriteLine(jsonString);
+
+        //    //TempData["MenuList"] = navbar;
+
+        //    TempData["data1"] = "test data";
+
+        //    TempData["message"] = "Welcome to TutorialsPanel.com!";
+        //    return RedirectToAction("Index", "Home", jsonString);
+
+        //}
+        //public IActionResult Detay()
+        //{
+        //    var getMenu = Navigation();
+        //    return View(getMenu);
+        //}
     }
 }
