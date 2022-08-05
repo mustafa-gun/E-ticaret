@@ -5,6 +5,14 @@
     int menuId = Convert.ToInt32(getMenuId);
     int dropdownId = Convert.ToInt32(getDropdownId);
 
+    foreach (Menu menuName in Model.Menu)
+    {
+        if (menuName.MenuId == menuId)
+        {
+            ViewData["Title"] = menuName.MenuName;
+
+        }
+    }
 }
 
 @*<p>Menu Id: @Context.Request.RouteValues["id"]</p>
@@ -12,25 +20,21 @@
 
 @if (Model != null)
 {
-    @foreach (Menu item in Model)
+    @foreach (Menu item in Model.Menu)
     {
+
         @if (item.MenuId == menuId)
         {
-            <h1>@item.MenuName</h1>
-            @if (dropdownId != 0)
+            <h1 class="display-1">@item.MenuName</h1>
+            <h2 class="display-4">Alt Menüler</h2>
+            @foreach (AltMenu altMenu in Model.AltMenu)
             {
-                <h2>Alt Menüler</h2>
-                @foreach (AltMenu altMenu in Model)
+                @if (item.MenuId == altMenu.AnaMenuId)
                 {
-                    @if (item.MenuId == altMenu.AnaMenuId)
-                    {
-                        <h3>@altMenu.AltMenuName</h3>
-                    }
+                    <p>@altMenu.AltMenuName</p>
                 }
             }
         }
 
     }
 }
-
-
