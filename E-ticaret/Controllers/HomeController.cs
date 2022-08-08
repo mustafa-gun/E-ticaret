@@ -55,7 +55,7 @@ namespace E_ticaret.Controllers
                 new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
                 new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
                 new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
                 new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
             };
             return altMenus;
