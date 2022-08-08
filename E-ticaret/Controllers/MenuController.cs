@@ -33,17 +33,7 @@ namespace E_ticaret.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetAllMenu()
-        {
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
-
-            //return mymodel;
-            return RedirectToAction("Index", "Home", mymodel);
-        }
-        [HttpPost]
-        public ExpandoObject Navigation()
+        public ExpandoObject GetAllMenu()
         {
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = GetMenus();
@@ -54,7 +44,12 @@ namespace E_ticaret.Controllers
 
         public IActionResult Index()
         {
-            var getMenu = Navigation();
+            var getMenu = GetAllMenu();
+            return View(getMenu);
+        }
+        public IActionResult Detay()
+        {
+            var getMenu = GetAllMenu();
             return View(getMenu);
         }
 
@@ -95,11 +90,6 @@ namespace E_ticaret.Controllers
         //    TempData["message"] = "Welcome to TutorialsPanel.com!";
         //    return RedirectToAction("Index", "Home", jsonString);
 
-        //}
-        //public IActionResult Detay()
-        //{
-        //    var getMenu = Navigation();
-        //    return View(getMenu);
         //}
     }
 }

@@ -35,40 +35,40 @@ namespace E_ticaret.Controllers
         /// <summary>
         /// Çalışan, son ana menü. Temp Data denemesi için commant'e alındı.
         /// </summary>
-        //private static List<Menu> GetMenus()
-        //{
-        //    List<Menu> menu = new()
-        //    {
-        //        new Menu { MenuId = 1, MenuName = "Elektronik" },
-        //        new Menu { MenuId = 2, MenuName = "Moda" },
-        //        new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
-        //        new Menu { MenuId = 4, MenuName = "Outdooe" }
-        //    };
-        //    return menu;
-        //}
+        private static List<Menu> GetMenus()
+        {
+            List<Menu> menu = new()
+            {
+                new Menu { MenuId = 1, MenuName = "Elektronik" },
+                new Menu { MenuId = 2, MenuName = "Moda" },
+                new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
+                new Menu { MenuId = 4, MenuName = "Outdooe" }
+            };
+            return menu;
+        }
 
-        //public List<AltMenu> GetAltMenus()
-        //{
-        //    List<AltMenu> altMenus = new()
-        //    {
-        //        new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
-        //        new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
-        //        new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
-        //        new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-        //        new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-        //        new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
-        //    };
-        //    return altMenus;
-        //}
+        public List<AltMenu> GetAltMenus()
+        {
+            List<AltMenu> altMenus = new()
+            {
+                new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
+                new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
+                new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+                new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
+            };
+            return altMenus;
+        }
 
-        //public ExpandoObject GetAllMenu()
-        //{
-        //    dynamic mymodel = new ExpandoObject();
-        //    mymodel.Menu = GetMenus();
-        //    mymodel.AltMenu = GetAltMenus();
+        public ExpandoObject GetAllMenu()
+        {
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = GetMenus();
+            mymodel.AltMenu = GetAltMenus();
 
-        //    return mymodel;
-        //}
+            return mymodel;
+        }
         public IActionResult Index()
         {
             Random rnd = new();
@@ -77,8 +77,10 @@ namespace E_ticaret.Controllers
 
             DateTime CurrentDate = DateTime.Now;
             ViewBag.CurrentDate = CurrentDate.ToString("ddMMyyyy");
+            var getMenu = GetAllMenu();
 
-            
+
+
             //string jsonString = new MenuItem();
 
             //List<MenuItem> anaMenu = JsonSerializer.Deserialize<List<MenuItem>>(jsonString);
@@ -96,15 +98,15 @@ namespace E_ticaret.Controllers
             //MenuItems item = new MenuItems(new AnaMenu(), new AltMenu());
 
             //var getMenu = GetAllMenu();
-            return View();
+            return View(getMenu);
         }
 
        
 
         public IActionResult Privacy()
         {
-            //var getMenu = GetAllMenu();
-            return View();   
+            var getMenu = GetAllMenu();
+            return View(getMenu);   
         }
 
 
