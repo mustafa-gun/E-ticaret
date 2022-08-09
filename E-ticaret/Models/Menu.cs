@@ -1,5 +1,24 @@
-﻿namespace E_ticaret.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace E_ticaret.Models
 {
+    public class Kategori
+    {
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string KategoriAdi { get; set; }
+    }
+    public class AltKategori
+    {
+
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string AltKategoriAdi { get; set; }
+        public int UstKategoriID { get; set; }
+    }
+
     public class Menu
     {
         public int MenuId { get; set; }

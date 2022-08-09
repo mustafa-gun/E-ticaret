@@ -3,16 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Text.Json;
+using E_ticaret.Controllers;
+using E_ticaret.Data;
 
 namespace E_ticaret.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
         //static readonly IList<AnaMenu> menuList = new List<AnaMenu>
         //{
@@ -32,9 +36,7 @@ namespace E_ticaret.Controllers
         //        new AnaMenu { Id = 5, MenuName = "Spor Outdoor", MenuLink = "spor-outdoor" , AltMenuler = new List<AltMenu>()},
         //};
 
-        /// <summary>
-        /// Çalışan, son ana menü. Temp Data denemesi için commant'e alındı.
-        /// </summary>
+
         private static List<Menu> GetMenus()
         {
             List<Menu> menu = new()
@@ -63,9 +65,30 @@ namespace E_ticaret.Controllers
 
         public ExpandoObject GetAllMenu()
         {
+            //var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
+            //var dataAltMenu = JsonSerializer.Deserialize<List<AltMenu>>(TempData["AltMenuler"].ToString());
+
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.Menu = dataMenu;
+            //mymodel.AltMenu = dataAltMenu;
+
+            //IEnumerable<Kategori> objKategori = _db.Kategoris.ToList();
+            //IEnumerable<AltKategori> altKategoris = _db.AltKategoris.ToList();
+
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.Menu = objKategori;
+            //mymodel.AltMenu = altKategoris;
+
+            
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = GetMenus();
             mymodel.AltMenu = GetAltMenus();
+
+            string serilizedAnaMenu = JsonSerializer.Serialize(mymodel.Menu);
+            TempData["AnaMenuler"] = serilizedAnaMenu;
+
+            string serilizedAltMenu = JsonSerializer.Serialize(mymodel.AltMenu);
+            TempData["AltMenuler"] = serilizedAltMenu;
 
             return mymodel;
         }

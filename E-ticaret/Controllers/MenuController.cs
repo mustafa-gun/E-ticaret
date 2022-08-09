@@ -1,49 +1,75 @@
-﻿using E_ticaret.Models;
+﻿using E_ticaret.Data;
+using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using System.Text.Json;
 
 namespace E_ticaret.Controllers
 {
     public class MenuController : Controller
     {
-        private static List<Menu> GetMenus()
+        private readonly ApplicationDbContext _db;
+        public MenuController(ApplicationDbContext db)
         {
-            List<Menu> menu = new()
-            {
-                new Menu { MenuId = 1, MenuName = "Elektronik" },
-                new Menu { MenuId = 2, MenuName = "Moda" },
-                new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
-                new Menu { MenuId = 4, MenuName = "Outdooe" }
-            };
-            return menu;
+            _db = db;
         }
+        //private static List<Menu> GetMenus()
+        //{
+        //    List<Menu> menu = new()
+        //    {
+        //        new Menu { MenuId = 1, MenuName = "Elektronik" },
+        //        new Menu { MenuId = 2, MenuName = "Moda" },
+        //        new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
+        //        new Menu { MenuId = 4, MenuName = "Outdooe" }
+        //    };
+        //    return menu;
+        //}
 
-        public List<AltMenu> GetAltMenus()
-        {
-            List<AltMenu> altMenus = new()
-            {
-                new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
-                new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
-            };
-            return altMenus;
-        }
+        //public List<AltMenu> GetAltMenus()
+        //{
+        //    List<AltMenu> altMenus = new()
+        //    {
+        //        new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
+        //        new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
+        //        new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
+        //        new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+        //        new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
+        //        new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
+        //    };
+        //    return altMenus;
+        //}
 
         [HttpPost]
         public ExpandoObject GetAllMenu()
         {
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.Menu = GetMenus();
+            //mymodel.AltMenu = GetAltMenus();
+
+            //string serilizedAnaMenu = JsonSerializer.Serialize(mymodel.Menu);
+            //ViewData["AnaMenuler"] = serilizedAnaMenu;
+
+            //string serilizedAltMenu = JsonSerializer.Serialize(mymodel.AltMenu);
+            //ViewData["AltMenuler"] = serilizedAltMenu;
+
+
+            //IEnumerable<Kategori> objKategori = _db.Kategoris.ToList();
+            //IEnumerable<AltKategori> altKategoris = _db.AltKategoris.ToList();
+
+            var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
+            var dataAltMenu = JsonSerializer.Deserialize<List<AltMenu>>(TempData["AltMenuler"].ToString());
+
+
             dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
+            mymodel.Menu = dataMenu;
+            mymodel.AltMenu = dataAltMenu;
 
             return mymodel;
         }
 
         public IActionResult Index()
         {
+
             var getMenu = GetAllMenu();
             return View(getMenu);
         }
