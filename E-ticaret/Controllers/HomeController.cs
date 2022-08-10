@@ -72,23 +72,23 @@ namespace E_ticaret.Controllers
             //mymodel.Menu = dataMenu;
             //mymodel.AltMenu = dataAltMenu;
 
-            //IEnumerable<Kategori> objKategori = _db.Kategoris.ToList();
-            //IEnumerable<AltKategori> altKategoris = _db.AltKategoris.ToList();
+            IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
+            IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = objKategori;
+            mymodel.AltMenu = altKategoris;
+
 
             //dynamic mymodel = new ExpandoObject();
-            //mymodel.Menu = objKategori;
-            //mymodel.AltMenu = altKategoris;
+            //mymodel.Menu = GetMenus();
+            //mymodel.AltMenu = GetAltMenus();
 
-            
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = GetMenus();
-            mymodel.AltMenu = GetAltMenus();
+            //string serilizedAnaMenu = JsonSerializer.Serialize(mymodel.Menu);
+            //TempData["AnaMenuler"] = serilizedAnaMenu;
 
-            string serilizedAnaMenu = JsonSerializer.Serialize(mymodel.Menu);
-            TempData["AnaMenuler"] = serilizedAnaMenu;
-
-            string serilizedAltMenu = JsonSerializer.Serialize(mymodel.AltMenu);
-            TempData["AltMenuler"] = serilizedAltMenu;
+            //string serilizedAltMenu = JsonSerializer.Serialize(mymodel.AltMenu);
+            //TempData["AltMenuler"] = serilizedAltMenu;
 
             return mymodel;
         }
@@ -131,6 +131,7 @@ namespace E_ticaret.Controllers
             var getMenu = GetAllMenu();
             return View(getMenu);   
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

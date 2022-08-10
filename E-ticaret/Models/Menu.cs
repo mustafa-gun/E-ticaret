@@ -5,9 +5,10 @@ namespace E_ticaret.Models
     public class Kategori
     {
         [Key]
-        public int Id { get; set; }
+        public int KategoriID { get; set; }
         [Required]
         public string KategoriAdi { get; set; }
+        public int AltKategorisiVar { get; set; }
     }
     public class AltKategori
     {

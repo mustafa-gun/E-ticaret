@@ -7,7 +7,12 @@ namespace E_ticaret.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<Kategori> Kategoris { get; set; }
-        public DbSet<AltKategori> AltKategoris { get; set; }
+        public DbSet<Kategori> tblKategori { get; set; }
+        public DbSet<AltKategori> tblAltKategori { get; set; }
+        public DbSet<Musteri> tblMusteri { get; set; }
+        public DbSet<Tedarikci> tblTedarikci { get; set; }
+        public DbSet<Urunler> tblUrunler { get; set; }
+        public DbSet<Yetkili> tblYetkili { get; set; }
+
     }
 }

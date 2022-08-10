@@ -38,16 +38,16 @@ namespace E_ticaret.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AltKategoris");
+                    b.ToTable("tblAltKategori");
                 });
 
             modelBuilder.Entity("E_ticaret.Models.Kategori", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("KategoriID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KategoriID"), 1L, 1);
 
                     b.Property<string>("KategoriAdi")
                         .IsRequired()
@@ -55,7 +55,7 @@ namespace E_ticaret.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kategoris");
+                    b.ToTable("tblKategori");
                 });
 #pragma warning restore 612, 618
         }

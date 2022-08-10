@@ -1,45 +1,27 @@
 ﻿@using E_ticaret
 @model dynamic
 @{
-    ViewBag.Title = "Home Page";
-}
-<h2>@ViewBag.Message</h2>
+    object getMenuId = Context.Request.RouteValues["id"];
+    int menuId = Convert.ToInt32(getMenuId);
 
-<p><b>Teacher List</b></p>
-
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Code</th>
-        <th>Name</th>
-    </tr>
-    @if (Model != null)
+    foreach (Kategori ktg in Model.Menu)
     {
-        <tr>
-            @foreach (Menu menu in Model.Menu)
-            {
-                <td><a href="/menu/detay/@menu.MenuId">@menu.MenuName</a></td>
-            }
-        </tr>
+        if (ktg.KategoriID == menuId)
+        {
+            ViewData["Title"] = ktg.KategoriAdi;
+        }
     }
-
-</table>
-
-<p><b>Student List</b></p>
-
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Enrollment No</th>
-    </tr>
-    @*@foreach (AltMenu altMenu in Model.AltMenu)
+}
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <h4>Alt Kategoriler</h4>
+    <ul>
+    @foreach (AltKategori altKtg in Model.AltMenu)
     {
-        <tr>
-            <td>@altMenu.AltMenuId</td>
-            <td>@altMenu.AltMenuName</td>
-            <td>@altMenu.AnaMenuId</td>
-        </tr>
-    }*@
-</table>
+        if (altKtg.UstKategoriID == menuId)
+        {
+            <li>@altKtg.AltKategoriAdi</li>
+        }
+    }
+    </ul>
+</div>

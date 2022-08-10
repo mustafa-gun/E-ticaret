@@ -44,24 +44,27 @@
                     <ul class="navbar-nav">
 
 
-                            @foreach (Menu menu in Model.Menu)
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" asp-controller="menu" asp-action="detay" asp-route-id="@menu.MenuId">@menu.MenuName</a>
-                                    @*<ul class="dropdown-menu">
+                        @foreach (Kategori ktg in Model.Menu)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" asp-controller="menu" asp-action="index" asp-route-id="@ktg.KategoriID">@ktg.KategoriAdi</a>
+                                @if (ktg.AltKategorisiVar == 1)
+                                {
+                                    <ul class="dropdown-menu">
 
                                         @foreach (AltKategori altMenu in Model.AltMenu)
                                         {
-                                            @if (menu.Id == altMenu.UstKategoriID)
+                                            @if (ktg.KategoriID == altMenu.UstKategoriID)
                                             {
                                                 <li>
-                                                    <a class="dropdown-item" href="/menu/detay/@menu.Id/@altMenu.Id">@altMenu.AltKategoriAdi</a>
+                                                    <a class="dropdown-item" href="/menu/detay/@ktg.KategoriID/@altMenu.Id">@altMenu.AltKategoriAdi</a>
                                                 </li>
                                             }
                                         }
-                                    </ul>*@
-                                </li>
-                            }
+                                    </ul>
+                                }
+                            </li>
+                        }
 
 
                         @*@if (Model != null)

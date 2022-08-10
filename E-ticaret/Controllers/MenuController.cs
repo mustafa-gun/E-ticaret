@@ -52,17 +52,20 @@ namespace E_ticaret.Controllers
             //string serilizedAltMenu = JsonSerializer.Serialize(mymodel.AltMenu);
             //ViewData["AltMenuler"] = serilizedAltMenu;
 
-
-            //IEnumerable<Kategori> objKategori = _db.Kategoris.ToList();
-            //IEnumerable<AltKategori> altKategoris = _db.AltKategoris.ToList();
-
-            var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
-            var dataAltMenu = JsonSerializer.Deserialize<List<AltMenu>>(TempData["AltMenuler"].ToString());
-
+            IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
+            IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
 
             dynamic mymodel = new ExpandoObject();
-            mymodel.Menu = dataMenu;
-            mymodel.AltMenu = dataAltMenu;
+            mymodel.Menu = objKategori;
+            mymodel.AltMenu = altKategoris;
+
+            //var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
+            //var dataAltMenu = JsonSerializer.Deserialize<List<AltMenu>>(TempData["AltMenuler"].ToString());
+
+
+            //dynamic mymodel = new ExpandoObject();
+            //mymodel.Menu = dataMenu;
+            //mymodel.AltMenu = dataAltMenu;
 
             return mymodel;
         }

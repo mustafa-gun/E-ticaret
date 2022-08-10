@@ -5,11 +5,24 @@
     int menuId = Convert.ToInt32(getMenuId);
     int dropdownId = Convert.ToInt32(getDropdownId);
 
-    foreach (Menu menuName in Model.Menu)
+    foreach (Kategori ktg in Model.Menu)
     {
-        if (menuName.MenuId == menuId)
+        foreach (AltKategori altKtg in Model.AltMenu)
         {
-            ViewData["Title"] = menuName.MenuName;
+            if (dropdownId != null)
+            {
+                if (menuId == ktg.KategoriID && altKtg.Id == dropdownId)
+                {
+                    ViewData["Title"] = altKtg.AltKategoriAdi + " - " + ktg.KategoriAdi;
+                }
+
+            } else if (menuId != null)
+            {
+                if (menuId == ktg.KategoriID)
+                {
+                    ViewData["Title"] = ktg.KategoriAdi;
+                }
+            }
 
         }
     }
@@ -20,18 +33,17 @@
 
 @if (Model != null)
 {
-    @foreach (Menu item in Model.Menu)
+    @foreach (Kategori ktg in Model.Menu)
     {
-
-        @if (item.MenuId == menuId)
+        @if (ktg.KategoriID == menuId)
         {
-            <h1 class="display-1">@item.MenuName</h1>
+            <h1 class="display-1">@ViewData["Title"]</h1>
             <h2 class="display-4">Alt Menüler</h2>
-            @foreach (AltMenu altMenu in Model.AltMenu)
+            @foreach (AltKategori altMenu in Model.AltMenu)
             {
-                @if (item.MenuId == altMenu.AnaMenuId)
+                @if (ktg.KategoriID == altMenu.UstKategoriID)
                 {
-                    <p>@altMenu.AltMenuName</p>
+                    <p>@altMenu.AltKategoriAdi</p>
                 }
             }
         }

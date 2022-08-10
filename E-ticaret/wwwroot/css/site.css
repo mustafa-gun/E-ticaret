@@ -17,6 +17,13 @@ html {
     background-color: #f3f3f3;
 }
 
+.nav-link {
+    font-weight: 600;
+}
+.nav-item.dropdown:hover {
+    background-color: #f3f3f3;
+}
+
 .placeImage {
     width: 100%;
     height: 250px;
