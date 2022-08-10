@@ -39,14 +39,14 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
 
                     <ul class="navbar-nav">
 
 
                         @foreach (Kategori ktg in Model.Menu)
                         {
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown mx-2">
                                 <a class="nav-link" asp-controller="menu" asp-action="index" asp-route-id="@ktg.KategoriID">@ktg.KategoriAdi</a>
                                 @if (ktg.AltKategorisiVar == 1)
                                 {
