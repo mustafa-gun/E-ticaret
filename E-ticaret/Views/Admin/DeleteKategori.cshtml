@@ -1,0 +1,33 @@
+﻿@model Kategori
+@{
+	Layout = null;
+}
+
+<form method="post" asp-action="DeleteKategori">
+	<input asp-for="KategoriID" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Kategoriyi Sil</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="KategoriAdi"></label>
+			<input asp-for="KategoriAdi" disabled class="form-control" />
+		</div>@*
+		<div class="mb-3">
+			<label asp-for="DisplayOrder"></label>
+			<input asp-for="DisplayOrder" disabled class="form-control" />
+		</div>*@
+		<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+		<a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">
+			Geri Dön
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

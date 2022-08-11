@@ -37,31 +37,31 @@ namespace E_ticaret.Controllers
         //};
 
 
-        private static List<Menu> GetMenus()
-        {
-            List<Menu> menu = new()
-            {
-                new Menu { MenuId = 1, MenuName = "Elektronik" },
-                new Menu { MenuId = 2, MenuName = "Moda" },
-                new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
-                new Menu { MenuId = 4, MenuName = "Outdooe" }
-            };
-            return menu;
-        }
+        //private static List<Menu> GetMenus()
+        //{
+        //    List<Menu> menu = new()
+        //    {
+        //        new Menu { MenuId = 1, MenuName = "Elektronik" },
+        //        new Menu { MenuId = 2, MenuName = "Moda" },
+        //        new Menu { MenuId = 3, MenuName = "Ev Tekstil" },
+        //        new Menu { MenuId = 4, MenuName = "Outdooe" }
+        //    };
+        //    return menu;
+        //}
 
-        public List<AltMenu> GetAltMenus()
-        {
-            List<AltMenu> altMenus = new()
-            {
-                new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
-                new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
-                new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
-                new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
-            };
-            return altMenus;
-        }
+        //public List<AltMenu> GetAltMenus()
+        //{
+        //    List<AltMenu> altMenus = new()
+        //    {
+        //        new AltMenu { AltMenuId = 1, AltMenuName = "Televizyon", AnaMenuId = 1 },
+        //        new AltMenu { AltMenuId = 2, AltMenuName = "Giyim", AnaMenuId = 2 },
+        //        new AltMenu { AltMenuId = 3, AltMenuName = "Alt Menu", AnaMenuId = 2 },
+        //        new AltMenu { AltMenuId = 4, AltMenuName = "Alt Menu", AnaMenuId = 3 },
+        //        new AltMenu { AltMenuId = 5, AltMenuName = "Alt Menu 1", AnaMenuId = 3 },
+        //        new AltMenu { AltMenuId = 6, AltMenuName = "Alt Menu", AnaMenuId = 4 }
+        //    };
+        //    return altMenus;
+        //}
 
         public ExpandoObject GetAllMenu()
         {
@@ -112,8 +112,8 @@ namespace E_ticaret.Controllers
             //var _altMenu = new List<AltMenu>
             //{
 
-            //    //new AltMenu { DropdownId = 4, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon", MenuId = 1},
-            //    //new AltMenu { DropdownId = 5, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon", MenuId = 1},
+            //new AltMenu { DropdownId = 4, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon", MenuId = 1},
+            //new AltMenu { DropdownId = 5, DropdownName = "Televizyon", DropdownLink = "/Elektronik/Televizyon", MenuId = 1},
             //};
 
             //MenuItems navbar = new MenuItems { AnaMenuItem = _anaMenu, AltMenuItem = _altMenu };

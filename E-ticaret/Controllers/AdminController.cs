@@ -36,6 +36,12 @@ namespace E_ticaret.Controllers
             return View(getMenu);
         }
 
+        public IActionResult Kategoriler()
+        {
+            var getMenu = GetAllMenu();
+            return View(getMenu);
+        }
+
         //GET
         public IActionResult Create()
         {
@@ -52,13 +58,13 @@ namespace E_ticaret.Controllers
                 _db.tblKategori.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction("Kategoriler");
             }
             return View(obj);
         }
 
         //GET
-        public IActionResult Edit(int? id)
+        public IActionResult EditKategori(int? id)
         {
             if (id == null || id == 0)
             {
@@ -79,17 +85,19 @@ namespace E_ticaret.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Kategori obj)
+        public IActionResult EditKategori(Kategori obj)
         {
             if (ModelState.IsValid)
             {
                 _db.tblKategori.Update(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Category updated successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction("Kategoriler");
             }
             return View(obj);
         }
+
+
 
         public IActionResult Delete(int? id)
         {
@@ -123,9 +131,100 @@ namespace E_ticaret.Controllers
             _db.tblKategori.Remove(obj);
             _db.SaveChanges();
             TempData["success"] = "Category deleted successfully";
-            return RedirectToAction("Index");
+            return RedirectToAction("Kategoriler");
 
         }
 
+        // ALT KATEGORİ CONTROLLER
+        //GET
+        public IActionResult CreateAltKategori()
+        {
+            return View();
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAltKategori(Kategori obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.tblKategori.Add(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
+                return RedirectToAction("Kategoriler");
+            }
+            return View(obj);
+        }
+
+        //GET
+        public IActionResult EditAltKategori(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _db.tblAltKategori.Find(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditAltKategori(AltKategori obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.tblAltKategori.Update(obj);
+                _db.SaveChanges();
+                TempData["success"] = "Alt kategori güncellemesi başarılı.";
+                return RedirectToAction("Kategoriler");
+            }
+            return View(obj);
+        }
+        public IActionResult DeleteAltKategori(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var categoryFromDb = _db.tblKategori.Find(id);
+            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteAltKategoriPOST(int? id)
+        {
+            var obj = _db.tblKategori.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.tblKategori.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Kategoriler");
+
+        }
     }
+
 }

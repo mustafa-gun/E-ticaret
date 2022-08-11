@@ -1,3 +1,5 @@
+
+
 html {
     font-size: 14px;
 }
@@ -95,4 +97,8 @@ footerlink a {
     width: 50%;
     margin: auto;
     float: none;
+}
+
+table-striped > tbody > tr:nth-of-type(odd) > * {
+    color: #ced4da!important;
 }

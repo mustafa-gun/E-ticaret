@@ -1,61 +1,18 @@
 ﻿@model dynamic
 
 @{
-    ViewData["Title"] = "Index";    
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Admin";    
 }
-<div id='myModal' class='modal'>  
-    <div class="modal-dialog">  
-        <div class="modal-content">  
-            <div id='myModalContent'></div>  
-        </div>  
-    </div>  
-</div>  
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Category List</h2>
-        </div>
-        <div class="col-6 text-end">
-            <a asp-controller="admin" asp-action="create" class="btn btn-primary">
-                <i class="fa-solid fa-circle-plus"></i> &nbsp; Create New Category
-            </a>
-        </div>
-    </div>
-    <br /><br />
-
-    <table class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    Kategori ID
-                </th>
-                <th>
-                    Kategori Adı
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Kategori obj in Model.Menu)
-            {
-                <tr>
-                    <td width="5%">
-                        @obj.KategoriID
-                    </td>
-                    <td width="85%">
-                        @obj.KategoriAdi
-                    </td>
-                    <td>
-                        <div class="w-100 d-flex justify-content-center">
-                            <a asp-controller="Admin" asp-action="Edit" asp-route-id="@obj.KategoriID"
-                           class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
-                            <a asp-controller="Admin" asp-action="Delete" asp-route-id="@obj.KategoriID"
-                           class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-</div>
+<section class="content-header">
+    <h1>
+        Home
+        <small>Optional description</small>
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+</section>
