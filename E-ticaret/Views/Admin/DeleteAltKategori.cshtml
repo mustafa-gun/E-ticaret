@@ -1,8 +1,9 @@
 ﻿@model AltKategori
 @{
-	Layout = null;
+	Layout = "_AdminLayout";
 }
 
+<div class="container">
 <form method="post" asp-action="DeleteAltKategori">
 	<input asp-for="Id" hidden />
 	<div class="border p-3 mt-4">
@@ -25,6 +26,7 @@
 		</a>
 	</div>
 </form>
+</div>
 
 @section Scripts{
 	@{

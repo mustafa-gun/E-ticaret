@@ -1,8 +1,8 @@
-﻿//namespace E_ticaret.Models
-//{
-//    public class MenuViewModel
-//    {
-//        //public List<Menu> AnaMenu { get; set; }
-//        public List<AltMenu> AltMenu { get; set; }
-//    }
-//}
+﻿namespace E_ticaret.Models
+{
+    public class MenuViewModel
+    {
+        public IEnumerable<Kategori> Kategori { get; set; }
+        public IEnumerable<AltKategori> AltKategori { get; set; }
+    }
+}

@@ -1,33 +1,10 @@
 ﻿@{
     Layout = "_AdminLayout";
     ViewData["Title"] = "Kategoriler";
-}
 
-@if (TempData["success"] != null)
-{
-    @*  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sonuç</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
-            </div>
-        </div>
-    </div>*@
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        @TempData["success"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    
 }
+<partial name="_Notification" />
 
 <div class="container p-3">
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -47,7 +24,7 @@
                     <h2 class="text-primary">Ana Kategoriler</h2>
                 </div>
                 <div class="col-6 text-end">
-                    <a asp-controller="admin" asp-action="create" class="btn btn-primary">
+                    <a asp-controller="admin" asp-action="createkategori" class="btn btn-primary">
                         <i class="fa-solid fa-circle-plus"></i> &nbsp; Yeni Kategori Oluştur
                     </a>
                 </div>
@@ -94,7 +71,7 @@
                     <h2 class="text-primary">Alt Kategoriler</h2>
                 </div>
                 <div class="col-6 text-end">
-                    <a asp-controller="admin" asp-action="create" class="btn btn-primary">
+                    <a asp-controller="admin" asp-action="createaltkategori" class="btn btn-primary">
                         <i class="fa-solid fa-circle-plus"></i> &nbsp; Yeni Alt Kategori Oluştur
                     </a>
                 </div>

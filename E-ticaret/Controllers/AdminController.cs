@@ -43,7 +43,7 @@ namespace E_ticaret.Controllers
         }
 
         //GET
-        public IActionResult Create()
+        public IActionResult CreateKategori()
         {
             return View();
         }
@@ -51,7 +51,7 @@ namespace E_ticaret.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Kategori obj)
+        public IActionResult CreateKategori(Kategori obj)
         {
             if (ModelState.IsValid)
             {
@@ -70,16 +70,16 @@ namespace E_ticaret.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _db.tblKategori.Find(id);
-            //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
-            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+            //var categoryFromDb = _db.tblKategori.Find(id);
+            //var categoryFromDbFirst = _db.tblKategori.FirstOrDefault(u=>u.KategoriID==id);
+            var categoryFromDbSingle = _db.tblKategori.SingleOrDefault(u => u.KategoriID == id);
 
-            if (categoryFromDb == null)
+            if (categoryFromDbSingle == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDb);
+            return View(categoryFromDbSingle);
         }
 
         //POST
@@ -93,13 +93,14 @@ namespace E_ticaret.Controllers
                 _db.SaveChanges();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Kategoriler");
+
             }
             return View(obj);
         }
 
 
 
-        public IActionResult Delete(int? id)
+        public IActionResult DeleteKategori(int? id)
         {
             if (id == null || id == 0)
             {
@@ -118,9 +119,9 @@ namespace E_ticaret.Controllers
         }
 
         //POST
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteKategori")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        public IActionResult DeleteKategoriPOST(int? id)
         {
             var obj = _db.tblKategori.Find(id);
             if (obj == null)
@@ -135,7 +136,9 @@ namespace E_ticaret.Controllers
 
         }
 
-        // ALT KATEGORİ CONTROLLER
+        /// <summary>
+        /// ALT KATEGORİ CONTROLLER
+        /// </summary>
         //GET
         public IActionResult CreateAltKategori()
         {
@@ -145,11 +148,11 @@ namespace E_ticaret.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateAltKategori(Kategori obj)
+        public IActionResult CreateAltKategori(AltKategori obj)
         {
             if (ModelState.IsValid)
             {
-                _db.tblKategori.Add(obj);
+                _db.tblAltKategori.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Kategoriler");
@@ -181,6 +184,10 @@ namespace E_ticaret.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditAltKategori(AltKategori obj)
         {
+            if (obj.AltKategoriAdi == obj.AltKategoriAdi)
+            {
+                ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
+            }
             if (ModelState.IsValid)
             {
                 _db.tblAltKategori.Update(obj);
@@ -196,7 +203,7 @@ namespace E_ticaret.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _db.tblKategori.Find(id);
+            var categoryFromDb = _db.tblAltKategori.Find(id);
             //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
@@ -209,17 +216,17 @@ namespace E_ticaret.Controllers
         }
 
         //POST
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteAltKategori")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteAltKategoriPOST(int? id)
         {
-            var obj = _db.tblKategori.Find(id);
+            var obj = _db.tblAltKategori.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.tblKategori.Remove(obj);
+            _db.tblAltKategori.Remove(obj);
             _db.SaveChanges();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Kategoriler");

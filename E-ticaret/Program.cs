@@ -32,4 +32,14 @@ app.MapControllerRoute(name: "detay",
                 pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
                 defaults: new { controller = "Menu", action = "Detay" });
 
+app.MapControllerRoute(name: "admin",
+                pattern: "{controller=Admin}/{action=Kategoriler}/{id?}/{dropdownId?}",
+                defaults: new { controller = "Admin", action = "Kategoriler" });
+app.MapControllerRoute(name: "admin",
+                pattern: "{controller=Admin}/{action=EditKategori}/{id?}/",
+                defaults: new { controller = "Admin", action = "EditKategori" });
+app.MapControllerRoute(name: "admin",
+                pattern: "{controller=Admin}/{action=EditAltKategori}/{id?}/{dropdownId?}",
+                defaults: new { controller = "Admin", action = "EditAltKategori" });
+
 app.Run();

@@ -2,8 +2,13 @@
 @{
 	Layout = "_AdminLayout";
 	ViewData["Title"] = "Kategori Düzenle";
+
+	ViewData["id"] = Context.Request.Query["id"].ToString();
+	ViewData["dropdownId"] = Context.Request.Query["dropdownId"].ToString();
+	
 }
 
+<div class="container">
 <form method="post" asp-action="EditKategori">
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
@@ -14,6 +19,12 @@
 		<div class="mb-3">
 			<label asp-for="KategoriAdi"></label>
 			<input asp-for="KategoriAdi" class="form-control" />
+				<label asp-for="AltKategorisiVar"></label>
+				<select asp-for="AltKategorisiVar">
+					<option value="1">Evet</option>
+					<option value="0">Hayır</option>
+				</select>
+				<input asp-for="AltKategorisiVar" class="form-control" />
 			<span asp-validation-for="KategoriAdi" class="text-danger"></span>
 		</div>@*
 		<div class="mb-3">
@@ -28,6 +39,10 @@
 	</div>
 </form>
 
+<form method="post" asp-action="editkategori">
+	
+</form>
+</div>
 @section Scripts{
 		<partial name="_ValidationScriptsPartial" />
 }
