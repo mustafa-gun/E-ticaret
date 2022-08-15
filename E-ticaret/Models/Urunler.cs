@@ -13,8 +13,8 @@ namespace E_ticaret.Models
         public int UrunKategorisi { get; set; }
         public string UrunFiyati { get; set; }
         public int StokDurumu { get; set; }
-        public string RenkSecenekleri { get; set; }
-        public string BoyutSecenekleri { get; set; }
+        public int RenkSecenekleri { get; set; }
+        public int BoyutSecenekleri { get; set; }
         public int Indirim { get; set; }
         public int TedarikciID { get; set; }
         public int GelisFiyati { get; set; }
