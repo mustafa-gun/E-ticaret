@@ -15,8 +15,14 @@
 			@*<div asp-validation-summary="All"></div>*@
 			<div class="mb-3">
 				<label asp-for="KategoriAdi"></label>
-				<input asp-for="KategoriAdi" class="form-control" />
+				<input asp-for="KategoriAdi" class="form-control" /><br />
+				<label asp-for="AltKategorisiVar"> Alt kategorisi var mı?</label>
+				<select asp-for="AltKategorisiVar">
+					<option value="1">Evet</option>
+					<option value="0">Hayır</option>
+				</select>
 				<span asp-validation-for="KategoriAdi" class="text-danger"></span>
+				<span asp-validation-for="AltKategorisiVar" class="text-danger"></span>
 			</div>
 			<button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
 			<a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">

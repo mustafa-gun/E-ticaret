@@ -1,0 +1,40 @@
+﻿@model Urunler
+
+@{
+	Layout = "_AdminLayout";
+	object getMenuId = Context.Request.RouteValues["id"];
+	int menuId = Convert.ToInt32(getMenuId);
+
+	ViewData["Title"] = "Ürün Sil";
+
+}
+
+<div class="container">
+<form method="post" asp-action="UrunSil">
+	<input asp-for="UrunID" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Kategoriyi Sil</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="UrunAdi"></label>
+			<input asp-for="UrunAdi" disabled class="form-control" />
+		</div>@*
+		<div class="mb-3">
+			<label asp-for="DisplayOrder"></label>
+			<input asp-for="DisplayOrder" disabled class="form-control" />
+		</div>*@
+		<button type="submit" class="btn btn-danger" style="width:150px">SİL</button>
+		<a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
+			Geri Dön
+		</a>
+	</div>
+</form>
+</div>
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

@@ -1,48 +1,46 @@
 ﻿@model Kategori
 @{
-	Layout = "_AdminLayout";
-	ViewData["Title"] = "Kategori Düzenle";
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Kategori Düzenle";
 
-	ViewData["id"] = Context.Request.Query["id"].ToString();
-	ViewData["dropdownId"] = Context.Request.Query["dropdownId"].ToString();
-	
+    ViewData["id"] = Context.Request.Query["id"].ToString();
+    ViewData["dropdownId"] = Context.Request.Query["dropdownId"].ToString();
+
 }
 
 <div class="container">
-<form method="post" asp-action="EditKategori">
-	<div class="border p-3 mt-4">
-		<div class="row pb-2">
-			<h2 class="text-primary">Kategori Düzenle</h2>
-			<hr />
-		</div>
-		@*<div asp-validation-summary="All"></div>*@
-		<div class="mb-3">
-			<label asp-for="KategoriAdi"></label>
-			<input asp-for="KategoriAdi" class="form-control" />
-				<label asp-for="AltKategorisiVar"></label>
-				<select asp-for="AltKategorisiVar">
-					<option value="1">Evet</option>
-					<option value="0">Hayır</option>
-				</select>
-				<input asp-for="AltKategorisiVar" class="form-control" />
-			<span asp-validation-for="KategoriAdi" class="text-danger"></span>
-		</div>@*
-		<div class="mb-3">
-			<label asp-for="DisplayOrder"></label>
-			<input asp-for="DisplayOrder" class="form-control" />
-			<span asp-validation-for="DisplayOrder" class="text-danger"></span>
-		</div>*@
-		<button type="submit" class="btn btn-primary" style="width:150px">Güncelle</button>
-		<a asp-controller="Admin" asp-action="Kategoriler" class="btn btn-secondary" style="width:150px">
-			Geri Dön
-		</a>
-	</div>
-</form>
-
-<form method="post" asp-action="editkategori">
-	
-</form>
+    <form method="post" asp-action="EditKategori">
+        <input asp-for="KategoriID" hidden />
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Kategori Düzenle</h2>
+                <hr />
+            </div>
+            @*<div asp-validation-summary="All"></div>*@
+            <div class="mb-3">
+                <label asp-for="KategoriAdi"></label>
+                <input asp-for="KategoriAdi" class="form-control" />
+                <br />
+                <label asp-for="AltKategorisiVar"> Alt kategorisi var mı?</label>
+                <select asp-for="AltKategorisiVar">
+                    <option value="1">Evet</option>
+                    <option value="0">Hayır</option>
+                </select>
+                <span asp-validation-for="KategoriAdi" class="text-danger"></span>
+            </div>@*
+            <div class="mb-3">
+            <label asp-for="DisplayOrder"></label>
+            <input asp-for="DisplayOrder" class="form-control" />
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+            </div>*@
+            <button type="submit" class="btn btn-primary" style="width:150px">Güncelle</button>
+            <a asp-controller="Admin" asp-action="Kategoriler" class="btn btn-secondary" style="width:150px">
+                Geri Dön
+            </a>
+        </div>
+    </form>
 </div>
+
 @section Scripts{
-		<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

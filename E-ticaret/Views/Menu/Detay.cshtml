@@ -2,8 +2,8 @@
 @{
     object getMenuId = Context.Request.RouteValues["id"];
     object getDropdownId = Context.Request.RouteValues["dropdownId"];
-    int menuId = Convert.ToInt32(getMenuId);
-    int dropdownId = Convert.ToInt32(getDropdownId);
+    int? menuId = Convert.ToInt32(getMenuId);
+    int? dropdownId = Convert.ToInt32(getDropdownId);
 
     foreach (Kategori ktg in Model.Menu)
     {

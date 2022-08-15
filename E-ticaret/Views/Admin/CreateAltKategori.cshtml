@@ -3,8 +3,6 @@
 
 @{
 	Layout = "_AdminLayout";
-
-	
 }
 <div class="container">
 	<form method="post">
@@ -17,10 +15,11 @@
 			<div class="mb-3">
 				<label asp-for="AltKategoriAdi"></label>
 				<input asp-for="AltKategoriAdi" class="form-control" />
-				<label asp-for="UstKategoriID"></label>
+				<br />
+				<label asp-for="UstKategoriID">Üst Kategori ID'si</label>
 				<input asp-for="UstKategoriID" class="form-control" />
+				<br />
 				<span asp-validation-for="AltKategoriAdi" class="text-danger"></span>
-				<span asp-validation-for="UstKategoriID" class="text-danger"></span>
 			</div>
 			<button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
 			<a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">

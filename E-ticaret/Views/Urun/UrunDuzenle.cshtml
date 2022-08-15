@@ -1,0 +1,109 @@
+﻿@model Urunler
+@{
+    Layout = "_AdminLayout";
+    object getMenuId = Context.Request.RouteValues["id"];
+    int menuId = Convert.ToInt32(getMenuId);
+    string title = Model.UrunAdi;
+    ViewData["Title"] = "Ürün Düzenle - " + title;
+}
+<div class="container">
+    <form method="post" asp-action="UrunDuzenle">
+        <input asp-for="UrunID" hidden />
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Ürün Ekle</h2>
+                <hr />
+            </div>
+            @*<div asp-validation-summary="All"></div>*@
+            <div class="row g-2" id="urunEklemeFormu">
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="UrunAdi" class="form-control" id="urunAdi" placeholder="Ürün adını girin">
+                    <label for="urunAdi">Ürün adını girin</label>
+                    <span asp-validation-for="UrunAdi" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="UrunKategorisi" class="form-control" id="kategori" placeholder="Kategori seçin">
+                    <label for="kategori">Kategori seçin</label>
+                    <span asp-validation-for="UrunKategorisi" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="UrunFiyati" class="form-control" id="fiyat" placeholder="Fiyat girin">
+                    <label for="fiyat">Satış fiyatı</label>
+                    <span asp-validation-for="UrunFiyati" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="GelisFiyati" class="form-control" id="gelisFiyati" placeholder="Geliş fiyatını girin">
+                    <label for="gelisFiyati">Geliş fiyat girin</label>
+                    <span asp-validation-for="GelisFiyati" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Indirim" class="form-control" id="stok" placeholder="Stok adedi girin">
+                    <label for="stok">İndirimli fiyat girin</label>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <select asp-for="RenkSecenekleri" id="renk" class="selectpicker" multiple aria-label="size 3 select example" style="width: 100%">
+                            <option value="1">Siyah</option>
+                            <option value="2">Beyaz</option>
+                            <option value="3">Kırmız</option>
+                            <option value="4">Mavi</option>
+                            <option value="5">Yeşil</option>
+                            <option value="6">Sarı</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <select asp-for="TedarikciID" id="tedarikci" style="width: 100%">
+                            <option value="1">a</option>
+                            <option value="2">b</option>
+                            <option value="3">c</option>
+                            <option value="4">d</option>
+                            <option value="5">e</option>
+                            <option value="6">f</option>
+                        </select>
+                        <span asp-validation-for="TedarikciID" class="text-danger">Tedarikçi seçin</span>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="StokDurumu" class="form-control" id="stok" placeholder="Stok adedi girin">
+                        <label for="stok">Stok adedi girin</label>
+                        <span asp-validation-for="StokDurumu" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="SKU" class="form-control" id="sku" placeholder="Ürün kodunu girin">
+                        <label for="sku">Ürün kodunu girin</label>
+                        <span asp-validation-for="SKU" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input asp-for="UrunAciklamasi" class="form-control" id="aciklama" placeholder="Açıklama yazın" style="height: 100px">
+                        <label for="aciklama">Açıklama yazın</label>
+                        <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:150px">Kaydet</button>
+            <a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">
+                Geri Dön
+            </a>
+        </div>
+    </form>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("button[role=combobox]").addClass("btn-dark");
+        }, 100);
+    });
+    $(function () {
+        $('select').selectpicker();
+    });
+
+</script>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

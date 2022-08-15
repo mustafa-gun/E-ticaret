@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Ürün Listesi";
+}
+<partial name="_Notification" />
+
+<div class="container mt-4">
+    <div class="row pt-4 mt-3">
+        <div class="col-6">
+            <h2 class="text-primary">Ana Kategoriler</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="urun" asp-action="urunekle" class="btn btn-primary">
+                <i class="fa-solid fa-circle-plus"></i> &nbsp; Ürün Ekle
+            </a>
+        </div>
+    </div>
+    <table id="urunTablosu" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>SKU</th>
+                <th>Ürün Adı</th>
+                <th>Açıklama</th>
+                <th>Ürün Kategorisi</th>
+                <th>Fiyat</th>
+                <th>Stok Durumu</th>
+                <th>Renkler</th>
+                <th>Boyutlar</th>
+                <th>İndirim</th>
+                <th>Tedarikçi</th>
+                <th>Geliş Fiyatı</th>
+                <th>Düzenle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (Urunler item in Model.Urunler)
+                {
+                    <tr>
+                        <td>@item.UrunID</td>
+                        <td>@item.SKU</td>
+                        <td>@item.UrunAdi</td>
+                        <td>@item.UrunAciklamasi</td>
+                        <td>@item.UrunKategorisi</td>
+                        <td>@item.UrunFiyati</td>
+                        <td>@item.StokDurumu</td>
+                        <td>@item.RenkSecenekleri</td>
+                        <td>@item.BoyutSecenekleri</td>
+                        <td>@item.Indirim</td>
+                        <td>@item.TedarikciID</td>
+                        <td>@item.GelisFiyati</td>
+                        <td>
+                            <div class="w-100 d-flex justify-content-center">
+                                <a asp-controller="urun" asp-action="urunduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a asp-controller="urun" asp-action="urunsil" asp-route-id="@item.UrunID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>SKU</th>
+                <th>Ürün Adı</th>
+                <th>Açıklama</th>
+                <th>Ürün Kategorisi</th>
+                <th>Fiyat</th>
+                <th>Stok Durumu</th>
+                <th>Renkler</th>
+                <th>Boyutlar</th>
+                <th>İndirim</th>
+                <th>Tedarikçi</th>
+                <th>Geliş Fiyatı</th>
+                <th>Düzenle</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
