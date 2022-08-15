@@ -20,7 +20,7 @@ namespace E_ticaret.Controllers
 
             IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
             IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
-            List<Urunler> urunListesi = _db.tblUrunler.ToList();
+            IEnumerable<Urunler> urunListesi = _db.tblUrunler.ToList();
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = objKategori;
