@@ -5,7 +5,7 @@
         public int TedarikciID { get; set; }
         public string SirketAdi { get; set; }
         public string Adres { get; set; }
-        public int PostaKodu { get; set; }
+        public string PostaKodu { get; set; }
         public string Telefon { get; set; }
         public string Fax { get; set; }
         public string Eposta { get; set; }

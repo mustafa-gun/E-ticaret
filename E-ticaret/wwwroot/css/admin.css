@@ -80,3 +80,11 @@ footerlink a {
 .table-striped > tbody > tr > td {
     color: #ced4da !important;
 }
+
+.adminUrunGorseli{
+    width: 50%;
+}
+
+.ck-editor {
+    color: #000;
+}

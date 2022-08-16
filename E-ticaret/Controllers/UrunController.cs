@@ -8,12 +8,14 @@ using System.IO;
 
 namespace E_ticaret.Controllers
 {
-	public class UrunController : Controller
-	{
+    public class UrunController : Controller
+    {
         private readonly ApplicationDbContext _db;
-        public UrunController(ApplicationDbContext db)
+        private IWebHostEnvironment _webHostEnvironment;
+        public UrunController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
         }
         public ExpandoObject GetData()
         {
@@ -25,69 +27,88 @@ namespace E_ticaret.Controllers
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = objKategori;
             mymodel.AltMenu = altKategoris;
-			mymodel.Urunler = urunListesi;
+            mymodel.Urunler = urunListesi;
 
             return mymodel;
         }
 
         public IActionResult Index()
-		{
+        {
             var data = GetData();
-			return View(data);
-		}
+            return View(data);
+        }
         public ActionResult UrunEkle()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UrunEkle(Urunler obj)
+        public async Task<ActionResult> UrunEkle([FromForm] Urunler obj, IFormCollection formValues)
         {
             if (ModelState.IsValid)
             {
+                if (obj.Gorsel != null)
+                {
+                    string folder = "images/products/";
+                    folder += Guid.NewGuid().ToString() + "_" + obj.Gorsel.FileName;
+                    obj.GorselURL = folder;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                    await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+                }
+
                 _db.tblUrunler.Add(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Ürün ekleme başarılı";
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
 
         public IActionResult UrunDuzenle(int? id)
-		{
+        {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            //var categoryFromDb = _db.tblKategori.Find(id);
+            var urunFromDb = _db.tblUrunler.Find(id);
             //var categoryFromDbFirst = _db.tblKategori.FirstOrDefault(u=>u.KategoriID==id);
-            var categoryFromDbSingle = _db.tblUrunler.SingleOrDefault(u => u.UrunID == id);
+            //var urunFromDb = _db.tblUrunler.SingleOrDefault(u => u.UrunID == id);
 
-            if (categoryFromDbSingle == null)
+            if (urunFromDb == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDbSingle);
-		}
+            return View(urunFromDb);
+        }
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UrunDuzenle(Urunler obj)
+        public async Task<ActionResult> UrunDuzenle([FromForm] Urunler obj)
         {
             if (ModelState.IsValid)
             {
-                //string UrunGorseli = Path.GetFileNameWithoutExtension(obj.UrunGorseli.FileName  );
-                _db.tblUrunler.Add(obj);
+                if (obj.Gorsel != null)
+                {
+                    string folder = "images/products/";
+                    folder += Guid.NewGuid().ToString() + "_" + obj.Gorsel.FileName;
+                    obj.GorselURL = folder;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                    await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
+                }
+                E_ticaret.Models.Urunler myObj = new();
+                myObj.UrunAciklamasi = obj.UrunAciklamasi;
+                _db.tblUrunler.Update(myObj);
+                _db.tblUrunler.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Ürün düzenleme başarılı";
                 return RedirectToAction("Index");
             }
             return View(obj);
         }
 
-		public IActionResult UrunSil(int? id)
-		{
+        public IActionResult UrunSil(int? id)
+        {
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -116,7 +137,7 @@ namespace E_ticaret.Controllers
 
             _db.tblUrunler.Remove(obj);
             _db.SaveChanges();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Ürün silme başarılı";
             return RedirectToAction("Index");
 
         }

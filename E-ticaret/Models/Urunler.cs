@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 
 namespace E_ticaret.Models
@@ -19,6 +20,8 @@ namespace E_ticaret.Models
         public int Indirim { get; set; }
         public int TedarikciID { get; set; }
         public int GelisFiyati { get; set; }
-        public byte Image { get; set; }
+        [NotMapped]
+        public IFormFile Gorsel { get; set; }
+        public string GorselURL { get; set; }
     }
 }

@@ -6,12 +6,13 @@
     string title = Model.UrunAdi;
     ViewData["Title"] = "Ürün Düzenle - " + title;
 }
+<script src="//cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
 <div class="container">
-    <form method="post" asp-action="UrunDuzenle">
+    <form method="post" enctype="multipart/form-data" asp-action="UrunDuzenle">
         <input asp-for="UrunID" hidden />
         <div class="border p-3 mt-4">
             <div class="row pb-2">
-                <h2 class="text-primary">Ürün Ekle</h2>
+                <h2 class="text-primary">Ürün Düzenle</h2>
                 <hr />
             </div>
             @*<div asp-validation-summary="All"></div>*@
@@ -42,17 +43,17 @@
                 </div>
                 <div class="row g-2">
                     <div class="mb-3 form-floating col-md">
-                        <select asp-for="RenkSecenekleri" id="renk" class="selectpicker" multiple aria-label="size 3 select example" style="width: 100%">
+                        <select asp-for="RenkSecenekleri" id="demo" multiple aria-label="Default select example" data-live-search="true" style="width: 100%">
                             <option value="1">Siyah</option>
                             <option value="2">Beyaz</option>
-                            <option value="3">Kırmız</option>
-                            <option value="4">Mavi</option>
-                            <option value="5">Yeşil</option>
-                            <option value="6">Sarı</option>
+                            <option value="3">Kırmızı</option>
+                            <option value="4">Sarı</option>
+                            <option value="5">Mavi</option>
+                            <option value="6">Çok Renkli</option>
                         </select>
                     </div>
                     <div class="mb-3 form-floating col-md">
-                        <select asp-for="TedarikciID" id="tedarikci" style="width: 100%">
+                        <select asp-for="TedarikciID" id="tedarikci" multiple aria-label="Default select example" data-live-search="true" style="width: 100%">
                             <option value="1">a</option>
                             <option value="2">b</option>
                             <option value="3">c</option>
@@ -79,11 +80,22 @@
                         <label for="aciklama">Açıklama yazın</label>
                         <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
                     </div>
+                    <div class="mb-3 form-floating col-md">
+                        <label asp-for="Gorsel" class="control-label"></label>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="formFile">Dosya seç</label>
+                            <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
+                            <input asp-for="GorselURL" type="hidden" value="@Model.GorselURL"/>
+                        </div>
+                        <span asp-validation-for="Gorsel" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <img src="~/@Model.GorselURL" class="adminUrunGorseli" />
+                    </div>
                 </div>
             </div>
-
             <button type="submit" class="btn btn-primary" style="width:150px">Kaydet</button>
-            <a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">
+            <a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
                 Geri Dön
             </a>
         </div>
@@ -101,6 +113,13 @@
         $('select').selectpicker();
     });
 
+    // Dosya elendiğinde dosya adını gösterir
+    $('#formFile').on("change", function () {
+        var i = $(this).prev('label').clone();
+        var file = $('#formFile')[0].files[0].name;
+        $(this).prev('label').text(file);
+
+    });
 </script>
 
 

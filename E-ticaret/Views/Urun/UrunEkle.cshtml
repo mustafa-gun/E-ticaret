@@ -3,8 +3,11 @@
     Layout = "_AdminLayout";
     ViewData["Title"] = "Ürün Ekle";
 }
+
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="~/plugins/ckeditor/ckeditor.js"></script>
 <div class="container">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="border p-3 mt-4">
             <div class="row pb-2">
                 <h2 class="text-primary">Ürün Ekle</h2>
@@ -38,17 +41,17 @@
                 </div>
                 <div class="row g-2">
                     <div class="mb-3 form-floating col-md">
-                        <select asp-for="RenkSecenekleri" id="demo" multiple="multiple" style="width: 100%">
-                            <option value="1">Javascript</option>
-                            <option value="2">Python</option>
-                            <option value="3">LISP</option>
-                            <option value="4">C++</option>
-                            <option value="5">jQuery</option>
-                            <option value="6">Ruby</option>
+                        <select asp-for="RenkSecenekleri" id="demo" multiple aria-label="Default select example" data-live-search="true" style="width: 100%">
+                            <option value="1">Siyah</option>
+                            <option value="2">Beyaz</option>
+                            <option value="3">Kırmızı</option>
+                            <option value="4">Sarı</option>
+                            <option value="5">Mavi</option>
+                            <option value="6">Çok Renkli</option>
                         </select>
                     </div>
                     <div class="mb-3 form-floating col-md">
-                        <select asp-for="TedarikciID" id="demo" multiple="multiple" style="width: 100%">
+                        <select asp-for="TedarikciID" id="demo" multiple aria-label="Default select example" data-live-search="true" style="width: 100%">
                             <option value="1">Javascript</option>
                             <option value="2">Python</option>
                             <option value="3">LISP</option>
@@ -71,28 +74,43 @@
                         <span asp-validation-for="SKU" class="text-danger"></span>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input asp-for="UrunAciklamasi" class="form-control" id="aciklama" placeholder="Açıklama yazın" style="height: 100px">
-                        <label for="aciklama">Açıklama yazın</label>
+                        <div class="row">
+                            <textarea class="ckeditor" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
+                        </div>
+                        @*<input asp-for="UrunAciklamasi" class="ckeditor form-control" type="text-area" id="aciklama" placeholder="Açıklama yazın" style="height: 100px">
+                        <label for="aciklama">Açıklama yazın</label>*@
                         <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <label asp-for="Gorsel" class="control-label"></label>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="formFile">Dosya seç</label>
+                            <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
+                        </div>
+                        <span asp-validation-for="Gorsel" class="text-danger"></span>
                     </div>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
-            <a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">
+            <a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
                 Geri Dön
             </a>
         </div>
     </form>
 </div>
-<script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
-<script type="text/javascript">
-    $(function () {
 
-        $('select[multiple]').multiselect();
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $('#formFile').on("change", function () {
+        console.log("change fire");
+        var i = $(this).prev('label').clone();
+        var file = $('#formFile')[0].files[0].name;
+        console.log(file);
+        $(this).prev('label').text(file);
 
     });
-
 </script>
 
 @section Scripts{

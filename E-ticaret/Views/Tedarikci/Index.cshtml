@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tedarikçi Listesi";
+}
+<partial name="_Notification" />
+
+<div class="container mt-4">
+    <div class="row pt-4 mt-3">
+        <div class="col-6">
+            <h2 class="text-primary">Tedarikçiler</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="urun" asp-action="urunekle" class="btn btn-primary">
+                <i class="fa-solid fa-circle-plus"></i> &nbsp; Tedarikçi Ekle
+            </a>
+        </div>
+    </div>
+    <table id="urunTablosu" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Adres</th>
+                <th>Posta Kodu</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>E-posta</th>
+                <th>Web Sitesi</th>
+                <th>Ödeme Şekli</th>
+                <th>İndirim</th>
+                <th>Şirket Notu</th>
+                <th>Güncel Sipariş</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (Tedarikci item in Model.Tedarikci)
+                {
+                    <tr>
+                        <td>@item.TedarikciID</td>
+                        <td>@item.SirketAdi</td>
+                        <td>@item.Adres</td>
+                        <td>@item.PostaKodu</td>
+                        <td>@item.Telefon</td>
+                        <td>@item.Fax</td>
+                        <td>@item.Eposta</td>
+                        <td>@item.URL</td>
+                        <td>@item.OdemeSekli</td>
+                        <td>@item.Indirim</td>
+                        <td>@item.SirketNotu</td>
+                        <td>@item.GuncelSiparis</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Adres</th>
+                <th>Posta Kodu</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>E-posta</th>
+                <th>Web Sitesi</th>
+                <th>Ödeme Şekli</th>
+                <th>İndirim</th>
+                <th>Şirket Notu</th>
+                <th>Güncel Sipariş</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,11 +1,10 @@
 ﻿@model Kategori
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Kategori Düzenle";
-
     ViewData["id"] = Context.Request.Query["id"].ToString();
     ViewData["dropdownId"] = Context.Request.Query["dropdownId"].ToString();
-
+    string title = Model.KategoriAdi;
+    ViewData["Title"] = "Ürün Düzenle - " + title;
 }
 
 <div class="container">
@@ -27,12 +26,7 @@
                     <option value="0">Hayır</option>
                 </select>
                 <span asp-validation-for="KategoriAdi" class="text-danger"></span>
-            </div>@*
-            <div class="mb-3">
-            <label asp-for="DisplayOrder"></label>
-            <input asp-for="DisplayOrder" class="form-control" />
-            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-            </div>*@
+            </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Güncelle</button>
             <a asp-controller="Admin" asp-action="Kategoriler" class="btn btn-secondary" style="width:150px">
                 Geri Dön

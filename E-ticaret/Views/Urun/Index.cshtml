@@ -31,6 +31,7 @@
                 <th>İndirim</th>
                 <th>Tedarikçi</th>
                 <th>Geliş Fiyatı</th>
+                <th>Ürün Görseli</th>
                 <th>Düzenle</th>
             </tr>
         </thead>
@@ -52,6 +53,9 @@
                         <td>@item.Indirim</td>
                         <td>@item.TedarikciID</td>
                         <td>@item.GelisFiyati</td>
+                        <td>
+                                <img src="~/@item.GorselURL" class="adminUrunGorseli" />
+                        </td>
                         <td>
                             <div class="w-100 d-flex justify-content-center">
                                 <a asp-controller="urun" asp-action="urunduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
@@ -76,6 +80,7 @@
                 <th>İndirim</th>
                 <th>Tedarikçi</th>
                 <th>Geliş Fiyatı</th>
+                <th>Ürün Görseli</th>
                 <th>Düzenle</th>
             </tr>
         </tfoot>
