@@ -8,7 +8,7 @@
 <div class="container mt-4">
     <div class="row pt-4 mt-3">
         <div class="col-6">
-            <h2 class="text-primary">Ana Kategoriler</h2>
+            <h2 class="text-primary">Ürün Listesi</h2>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="urun" asp-action="urunekle" class="btn btn-primary">
@@ -58,8 +58,8 @@
                         </td>
                         <td>
                             <div class="w-100 d-flex justify-content-center">
-                                <a asp-controller="urun" asp-action="urunduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
-                                <a asp-controller="urun" asp-action="urunsil" asp-route-id="@item.UrunID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
+                                <a asp-controller="tedarikci" asp-action="tedarikciduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a asp-controller="tedarikci" asp-action="tedarikcisil" asp-route-id="@item.UrunID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
                             </div>
                         </td>
                     </tr>

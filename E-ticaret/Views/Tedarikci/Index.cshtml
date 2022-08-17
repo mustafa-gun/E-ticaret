@@ -10,7 +10,7 @@
             <h2 class="text-primary">Tedarikçiler</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="urun" asp-action="urunekle" class="btn btn-primary">
+            <a asp-controller="tedarikci" asp-action="tedarikciekle" class="btn btn-primary">
                 <i class="fa-solid fa-circle-plus"></i> &nbsp; Tedarikçi Ekle
             </a>
         </div>
@@ -48,7 +48,13 @@
                         <td>@item.URL</td>
                         <td>@item.OdemeSekli</td>
                         <td>@item.Indirim</td>
-                        <td>@item.SirketNotu</td>
+                        <td>
+                            @if (item.SirketNotu == null)
+                            {
+                                <p>Şirket notu yok.</p>
+                            }else{
+                                @item.SirketNotu;
+                            }</td>
                         <td>@item.GuncelSiparis</td>
                     </tr>
                 }

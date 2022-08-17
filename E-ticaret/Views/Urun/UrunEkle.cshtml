@@ -74,9 +74,7 @@
                         <span asp-validation-for="SKU" class="text-danger"></span>
                     </div>
                     <div class="mb-3 form-floating">
-                        <div class="row">
-                            <textarea class="ckeditor" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
-                        </div>
+                        <textarea class="ckeditor" id="editor1" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
                         @*<input asp-for="UrunAciklamasi" class="ckeditor form-control" type="text-area" id="aciklama" placeholder="Açıklama yazın" style="height: 100px">
                         <label for="aciklama">Açıklama yazın</label>*@
                         <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
@@ -109,8 +107,23 @@
         var file = $('#formFile')[0].files[0].name;
         console.log(file);
         $(this).prev('label').text(file);
-
     });
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            $("button[role=combobox]").addClass("btn-dark");
+        }, 100);
+    });
+
+    $(function () {
+        $('select').selectpicker();
+    });
+
+    ClassicEditor
+        .create(document.querySelector('UrunAciklamasi'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 @section Scripts{

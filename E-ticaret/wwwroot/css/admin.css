@@ -81,10 +81,18 @@ footerlink a {
     color: #ced4da !important;
 }
 
-.adminUrunGorseli{
-    width: 50%;
+.adminUrunGorseli {
+    width: 100%;
 }
 
 .ck-editor {
     color: #000;
+}
+
+.bootstrap-select{width: 100%!important}
+.selectInput {
+    padding: 1rem 0.75rem;
+    background-color: #343a40 !important;
+    color: #fff !important;
+    border-color: #6c757d !important;
 }

@@ -96,9 +96,6 @@ namespace E_ticaret.Controllers
                     string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
                     await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
                 }
-                E_ticaret.Models.Urunler myObj = new();
-                myObj.UrunAciklamasi = obj.UrunAciklamasi;
-                _db.tblUrunler.Update(myObj);
                 _db.tblUrunler.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
                 TempData["success"] = "Ürün düzenleme başarılı";
