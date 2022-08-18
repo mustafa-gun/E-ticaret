@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Müşteri Listesi";
+}
+<partial name="_Notification" />
+
+<div class="container mt-4">
+    <div class="row pt-4 mt-3">
+        <div class="col-6">
+            <h2 class="text-primary">Müşteriler</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="tedarikci" asp-action="tedarikciekle" class="btn btn-primary">
+                <i class="fa-solid fa-circle-plus"></i> &nbsp; Müşteri Oluştur
+            </a>
+        </div>
+    </div>
+    <table id="datatable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th style="width:25%">İsim</th>
+                <th style="width:25%">Telefon</th>
+                <th style="width:25%">E-posta</th>
+                <th style="width:15%">Düzenle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (Musteri item in Model.Musteri)
+                {
+                    <tr>
+                        <td>@item.MusteriID</td>
+                        <td>@item.Adi @item.Soyadi</td>
+                        <td>@item.CepTelefonu</td>
+                        <td>@item.Eposta</td>
+                        <td>
+                            <div class="w-100 d-flex justify-content-center flex-column">
+                                <div class="w-100 d-flex justify-content-center my-2">
+                                    <a asp-controller="musteri" asp-action="detay" asp-route-id="@item.MusteriID" class="btn btn-secondary mx-2"> <i class="fa-solid fa-circle-info"></i></a>
+                                    <a asp-controller="musteri" asp-action="musteriduzenle" asp-route-id="@item.MusteriID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a asp-controller="musteri" asp-action="musterisil" asp-route-id="@item.MusteriID" class="btn btn-danger mx-2"> <i class="fa-solid fa-ban"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Telefon</th>
+                <th>E-posta</th>
+                <th>Düzenle</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!-- DataTable -->
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+            },
+            columnDefs: [{
+                targets: 2,
+                render: function (data, type, row) {
+                    return data.substr(0, 10);
+                }
+            }]
+        });
+    });
+
+    //$(document).ready(function () {
+    //    setTimeout(function () {
+    //        var a = $("input[type=search]");
+    //        a.addClass("form-control");
+    //    }, 200);
+    //}); 
+</script>

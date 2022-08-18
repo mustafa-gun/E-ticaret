@@ -1,0 +1,38 @@
+﻿@model Kategori
+
+@{
+	Layout = "_AdminLayout";
+
+	
+}
+<div class="container">
+<form method="post">
+		<div class="border p-3 mt-4">
+			<div class="row pb-2">
+				<h2 class="text-primary">Yeni Kategori Oluştur</h2>
+				<hr />
+			</div>
+			@*<div asp-validation-summary="All"></div>*@
+			<div class="mb-3">
+				<label asp-for="KategoriAdi"></label>
+				<input asp-for="KategoriAdi" class="form-control" /><br />
+				<label asp-for="AltKategorisiVar"> Alt kategorisi var mı?</label>
+				<select asp-for="AltKategorisiVar">
+					<option value="1">Evet</option>
+					<option value="0">Hayır</option>
+				</select>
+				<span asp-validation-for="KategoriAdi" class="text-danger"></span>
+				<span asp-validation-for="AltKategorisiVar" class="text-danger"></span>
+			</div>
+			<button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
+			<a asp-controller="admin" asp-action="kategoriler" class="btn btn-secondary" style="width:150px">
+				Geri Dön
+			</a>
+		</div>
+	</form>
+</div>
+
+
+@section Scripts{
+		<partial name="_ValidationScriptsPartial" />
+	}

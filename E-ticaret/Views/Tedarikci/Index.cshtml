@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tedarikçi Listesi";
+}
+<partial name="_Notification" />
+
+<div class="container mt-4">
+    <div class="row pt-4 mt-3">
+        <div class="col-6">
+            <h2 class="text-primary">Tedarikçiler</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="tedarikci" asp-action="tedarikciekle" class="btn btn-primary">
+                <i class="fa-solid fa-circle-plus"></i> &nbsp; Tedarikçi Ekle
+            </a>
+        </div>
+    </div>
+    <table id="datatable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Adres</th>
+                <th>Posta Kodu</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>E-posta</th>
+                <th>Web Sitesi</th>
+                <th>Ödeme Şekli</th>
+                <th>İndirim</th>
+                <th>Şirket Notu</th>
+                <th>Güncel Sipariş</th>
+                <th>Düzenle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (Tedarikci item in Model.Tedarikci)
+                {
+                    <tr>
+                        <td>@item.TedarikciID</td>
+                        <td>@item.SirketAdi</td>
+                        <td>@item.Adres</td>
+                        <td>@item.PostaKodu</td>
+                        <td>@item.Telefon</td>
+                        <td>@item.Fax</td>
+                        <td>@item.Eposta</td>
+                        <td>@item.URL</td>
+                        <td>@item.OdemeSekli</td>
+                        <td>@item.Indirim</td>
+                        <td>
+                            @if (item.SirketNotu == null)
+                            {
+                                <p>Şirket notu yok.</p>
+                            }else{
+                                @item.SirketNotu;
+                            }</td>
+                        <td>@item.GuncelSiparis</td>
+                        <td>
+                            <div class="w-100 d-flex justify-content-center">
+                                <a asp-controller="tedarikci" asp-action="tedarikciduzenle" asp-route-id="@item.TedarikciID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a asp-controller="tedarikci" asp-action="tedarikcisil" asp-route-id="@item.TedarikciID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Adres</th>
+                <th>Posta Kodu</th>
+                <th>Telefon</th>
+                <th>Fax</th>
+                <th>E-posta</th>
+                <th>Web Sitesi</th>
+                <th>Ödeme Şekli</th>
+                <th>İndirim</th>
+                <th>Şirket Notu</th>
+                <th>Güncel Sipariş</th>
+                <th>Düzenle</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!-- DataTable -->
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+            },
+            columnDefs: [{
+                targets: 2,
+                render: function (data, type, row) {
+                    return data.substr(0, 10);
+                }
+            }]
+        });
+    });
+</script>

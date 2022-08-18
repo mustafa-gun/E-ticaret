@@ -1,0 +1,134 @@
+﻿@model Tedarikci
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tedarikçi Ekle";
+}
+
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="~/plugins/ckeditor/ckeditor.js"></script>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Ürün Ekle</h2>
+                <hr />
+            </div>
+            @*<div asp-validation-summary="All"></div>*@
+            <div class="row g-2" id="urunEklemeFormu">
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="SirketAdi" class="form-control" id="sirketAdi" placeholder="Ürün adını girin">
+                    <label for="sirketAdi">Şirket adı</label>
+                    <span asp-validation-for="SirketAdi" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="URL" class="form-control" id="url" placeholder="Geliş fiyatını girin">
+                    <label for="url">Web sitesi</label>
+                    <span asp-validation-for="URL" class="text-danger"></span>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="Telefon" type="text" class="form-control bfh-phone form-control" id="telefon" placeholder="+90 (212) 123-1212" value="" data-format="+90 (ddd) ddd-dddd">
+                        <label for="telefon">Telefon No</label>
+                        <span asp-validation-for="Telefon" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="Indirim" class="form-control" id="fiyat" placeholder="Fiyat girin">
+                        <label for="fiyat">İndirim oranı</label>
+                        <span asp-validation-for="Indirim" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md mb-3">
+                        <select asp-for="OdemeSekli" id="demo" aria-label="Ödeme yöntemi seçin" data-live-search="true" style="width: 100%">
+                            <option selected>Ödeme yöntemi seçin</option>
+                            <option value="1">Nakit</option>
+                            <option value="2">Taksitli</option>
+                            <option value="3">Çek/Senet</option>
+                            <option value="4">Havale/EFT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="Adres" class="form-control" id="adres" placeholder="Stok adedi girin">
+                        <label for="adres">Adres</label>
+                        <span asp-validation-for="Adres" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Fax" class="form-control" id="stok" placeholder="Stok adedi girin">
+                    <label for="stok">Fax</label>
+                    <span asp-validation-for="Fax" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Eposta" class="form-control" id="stok" placeholder="Stok adedi girin">
+                    <label for="stok">E-posta</label>
+                    <span asp-validation-for="Eposta" class="text-danger"></span>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="SirketNotu" class="form-control" id="stok" placeholder="Stok adedi girin">
+                        <label for="stok">Şirket notu</label>
+                        <span asp-validation-for="SirketNotu" class="text-danger"></span>
+                    </div>
+                    @*<div class="mb-3 form-floating col-md">
+                        <input asp-for="SKU" class="form-control" id="sku" placeholder="Ürün kodunu girin">
+                        <label for="sku">Ürün kodunu girin</label>
+                        <span asp-validation-for="SKU" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <textarea class="ckeditor" id="editor1" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
+                       
+                        <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <label asp-for="Gorsel" class="control-label"></label>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="formFile">Dosya seç</label>
+                            <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
+                        </div>
+                        <span asp-validation-for="Gorsel" class="text-danger"></span>
+                    </div>*@
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
+            <a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
+                Geri Dön
+            </a>
+        </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $('#formFile').on("change", function () {
+        console.log("change fire");
+        var i = $(this).prev('label').clone();
+        var file = $('#formFile')[0].files[0].name;
+        console.log(file);
+        $(this).prev('label').text(file);
+    });
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            var b = $("button[role=combobox]");
+            b.addClass("btn-dark");
+            b.addClass("selectInput");
+        }, 100);
+    });
+
+    $(function () {
+        $('select').selectpicker();
+    });
+
+    ClassicEditor
+        .create(document.querySelector('UrunAciklamasi'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

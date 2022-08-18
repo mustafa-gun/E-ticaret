@@ -1,0 +1,37 @@
+﻿<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    @*<li class="header">HEADER</li>*@
+    <!-- Optionally, you can add icons to the links -->
+    
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Ürün
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item"><a asp-controller="admin" asp-action="kategoriler" class="nav-link">Kategoriler</a></li>
+            <li class="nav-item"><a asp-controller="urun" asp-action="index" class="nav-link">Tüm Ürünler</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Ürün Renkleri</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Ürün Boyutları</a></li>
+        </ul>
+        
+
+    </li>
+    <li class="nav-item"><a asp-controller="tedarikci" asp-action="index" class="nav-link"><i class="fa fa-link"></i> <p>Tedarikçi Listesi</p></a></li>
+    <li class="nav-item"><a asp-controller="musteri " asp-action="index" class="nav-link"><i class="fa fa-link"></i> <p>Müşteri Listesi</p></a></li>
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="#" class="nav-link">Link in level 2</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Link in level 2</a></li>
+        </ul>
+    </li>
+</ul>

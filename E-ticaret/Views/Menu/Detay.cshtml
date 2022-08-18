@@ -1,0 +1,51 @@
+﻿@model dynamic
+@{
+    object getMenuId = Context.Request.RouteValues["id"];
+    object getDropdownId = Context.Request.RouteValues["dropdownId"];
+    int? menuId = Convert.ToInt32(getMenuId);
+    int? dropdownId = Convert.ToInt32(getDropdownId);
+
+    foreach (Kategori ktg in Model.Menu)
+    {
+        foreach (AltKategori altKtg in Model.AltMenu)
+        {
+            if (dropdownId != null)
+            {
+                if (menuId == ktg.KategoriID && altKtg.Id == dropdownId)
+                {
+                    ViewData["Title"] = altKtg.AltKategoriAdi + " - " + ktg.KategoriAdi;
+                }
+
+            } else if (menuId != null)
+            {
+                if (menuId == ktg.KategoriID)
+                {
+                    ViewData["Title"] = ktg.KategoriAdi;
+                }
+            }
+        }
+    }
+}
+
+@*<p>Menu Id: @Context.Request.RouteValues["id"]</p>
+<p>Alt Menu Id: @Context.Request.RouteValues["dropdownId"]</p>*@
+
+@if (Model != null)
+{
+    @foreach (Kategori ktg in Model.Menu)
+    {
+        @if (ktg.KategoriID == menuId)
+        {
+            <h1 class="display-1">@ViewData["Title"]</h1>
+            <h2 class="display-4">Alt Menüler</h2>
+            @foreach (AltKategori altMenu in Model.AltMenu)
+            {
+                @if (ktg.KategoriID == altMenu.UstKategoriID)
+                {
+                    <p>@altMenu.AltKategoriAdi</p>
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,192 @@
+﻿@*@model List<E_ticaret.Models.Menu>*@
+@model dynamic
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow nav justify-content-end">
+            <div class="navbar-collapse collapse d-sm-inline-flex container justify-content-end bg-dark">
+                <div class="input-group">
+                    <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Ürün Ara" id="example-search-input">
+                    <span class="input-group-append">
+                        <button id="search-button" class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill ms-n5" type="button">
+                            Ara
+                        </button>
+                    </span>
+                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Kullanici" asp-action="Index"><i class="fa-solid fa-user"></i> Kullanıcı Adı </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Sepet" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i> Sepet </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg sticky-top bg-light">
+            <div class="container bg-light">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">E-Ticaret</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+                        @foreach (Kategori ktg in Model.Menu)
+                        {
+                            <li class="nav-item dropdown mx-2">
+                                <a class="nav-link" asp-controller="menu" asp-action="index" asp-route-id="@ktg.KategoriID">@ktg.KategoriAdi</a>
+                                @if (ktg.AltKategorisiVar == 1)
+                                {
+                                    <ul class="dropdown-menu">
+
+                                        @foreach (AltKategori altMenu in Model.AltMenu)
+                                        {
+                                            @if (ktg.KategoriID == altMenu.UstKategoriID)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item" href="@Html.Raw("/menu/detay/" + @ktg.KategoriID + "/" + @altMenu.Id)">@altMenu.AltKategoriAdi</a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+
+                        @*@if (Model != null)
+                        {
+
+                        @foreach (var item in Model)
+                        {
+                        @if (item != null)
+                        {
+                        if (item.AnaMenuItem.AltMenuler.Count == 0)
+                        {
+                        <li class="nav-item">
+                        <a class="nav-link" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id">@item.AnaMenuItem.MenuName</a>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id">@item.AnaMenuItem.MenuName</a>
+                        <ul class="dropdown-menu">
+                        @foreach (var altMenu in item.AnaMenuItem.AltMenuler)
+                        {
+                        <li>
+                        <a class="dropdown-item" asp-controller="menu" asp-action="detay" asp-route-id="@item.AnaMenuItem.Id/@altMenu.Id">@altMenu.DropdownName</a>
+                        </li>
+                        }
+                        </ul>
+                        </li>
+                        }
+                        }
+                        }
+                        } else
+                        {
+                        <li>hata</li>
+                        }*@
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer data-test="footer" class="sc-olbas jbJXOi page-footer shadow text-white bg-dark px-0">
+        <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column mx-auto py-5 container bg-dark" style="width: 90%;">
+            <div data-test="box" class="sc-iBkjds bvxuqu d-flex justify-content-between flex-wrap">
+                <div data-test="box" class="sc-iBkjds bvxuqu">
+                    <a href="/" class="d-flex align-items-center p-0 text-light">
+                        <img alt="logo" src="~/images/logo.png" width="30px">
+                        <span class="ml-3 h5 font-weight-bold">E-ticaret</span>
+                    </a>
+                    <p class="my-3" style="width: 250px;">E-ticaret Projesi</p>
+                </div>
+                <div data-test="box" class="sc-iBkjds bvxuqu">
+                    <p class="h5 mb-4" style="font-weight: 600;">E-ticaret</p>
+                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#hakkimizda">Hakkımızda</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#insan-kaynaklari">İnsan Kaynakları</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#iletisim">İletişim</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#kvkk">KVKK</a>
+                        </footerlink>
+                    </div>
+                </div>
+                <div data-test="box" class="sc-iBkjds bvxuqu">
+                    <p class="h5 mb-4" style="font-weight: 600;">Kategoriler</p>
+                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#">Bilgisayar</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#">Ev Aletleri</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#">Akıllı Telefon</a>
+                        </footerlink><footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#">Moda</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#">Sağlık &amp; Yaşam</a>
+                        </footerlink>
+                    </div>
+                </div>
+                <div data-test="box" class="sc-iBkjds bvxuqu">
+                    <p class="h5 mb-4" style="font-weight: 600;">Markalar</p>
+                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#category/apple">Apple</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#category/avon">Avon</a>
+                        </footerlink>
+                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                            <a href="#category/samsung">Samsung</a>
+                        </footerlink>
+                    </div>
+                </div>
+            </div>
+            <div data-test="box" class="sc-iBkjds bvxuqu d-flex justify-content-center align-items-center mx-auto mt-4" style="width: 100%;">
+                <small class="text-center" style="width: 50%;">Copyright © 2022 E-ticaret</small>
+                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent p-2">
+                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-facebook-f"></i>
+                </button>
+                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent mx-3 p-2">
+                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-twitter"></i>
+                </button>
+                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent p-2">
+                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-instagram"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

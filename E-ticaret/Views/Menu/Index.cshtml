@@ -1,0 +1,27 @@
+﻿@using E_ticaret
+@model dynamic
+@{
+    object getMenuId = Context.Request.RouteValues["id"];
+    int menuId = Convert.ToInt32(getMenuId);
+
+    foreach (Kategori ktg in Model.Menu)
+    {
+        if (ktg.KategoriID == menuId)
+        {
+            ViewData["Title"] = ktg.KategoriAdi;
+        }
+    }
+}
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <h4>Alt Kategoriler</h4>
+    <ul>
+    @foreach (AltKategori altKtg in Model.AltMenu)
+    {
+        if (altKtg.UstKategoriID == menuId)
+        {
+            <li>@altKtg.AltKategoriAdi</li>
+        }
+    }
+    </ul>
+</div>
