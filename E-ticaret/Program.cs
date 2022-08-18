@@ -1,5 +1,6 @@
 using E_ticaret.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,12 +8,25 @@ using System;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 builder.Environment.IsDevelopment();
+
+//builder.Services.AddHttpLogging(options =>
+//{
+//    //options.LoggingFields = HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestPath;
+//    options.LoggingFields = HttpLoggingFields.All;
+//    options.MediaTypeOptions.AddText("application/javascript");
+//    options.RequestBodyLogLimit = 4096;
+//    options.ResponseBodyLogLimit = 4096;
+//    options.ResponseHeaders.Remove("Content-Type");
+//    options.ResponseHeaders.Remove("Server");
+//});
 
 var app = builder.Build();
 
@@ -22,6 +36,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.UseHttpLogging();
 
 app.UseHsts();
 
@@ -36,7 +52,7 @@ app.MapControllerRoute(name: "default",
 
 app.MapControllerRoute(name: "menu",
                 pattern: "{controller=Menu}/{action=Index}/{id?}",
-                defaults: new { controller = "Menu", action = "Index" },);
+                defaults: new { controller = "Menu", action = "Index" });
 
 app.MapControllerRoute(name: "detay",
                 pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
