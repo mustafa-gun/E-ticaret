@@ -1,10 +1,7 @@
-﻿using E_ticaret.Models;
-using E_ticaret.Data;
+﻿using E_ticaret.Data;
+using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Web;
 using System.Dynamic;
-using System;
-using System.IO;
 
 namespace E_ticaret.Controllers
 {
@@ -45,7 +42,7 @@ namespace E_ticaret.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UrunEkle([FromForm] Urunler obj, IFormCollection formValues)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && obj.Gorsel != null)
             {
                 if (obj.Gorsel != null)
                 {
@@ -61,7 +58,13 @@ namespace E_ticaret.Controllers
                 TempData["success"] = "Ürün ekleme başarılı";
                 return RedirectToAction("Index");
             }
+            else if (obj.Gorsel == null)
+            {
+                TempData["error"] = "Görsel ekleyin!";
+                return View();
+            }
             return View(obj);
+
         }
 
         public IActionResult UrunDuzenle(int? id)

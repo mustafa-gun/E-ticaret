@@ -2,7 +2,6 @@
 using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
-using System.Text.Json;
 
 namespace E_ticaret.Controllers
 {
