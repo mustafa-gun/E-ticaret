@@ -15,7 +15,7 @@
             </a>
         </div>
     </div>
-    <table id="urunTablosu" class="table table-striped" style="width:100%">
+    <table id="datatable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>#</th>
@@ -30,6 +30,7 @@
                 <th>İndirim</th>
                 <th>Şirket Notu</th>
                 <th>Güncel Sipariş</th>
+                <th>Düzenle</th>
             </tr>
         </thead>
         <tbody>
@@ -56,6 +57,12 @@
                                 @item.SirketNotu;
                             }</td>
                         <td>@item.GuncelSiparis</td>
+                        <td>
+                            <div class="w-100 d-flex justify-content-center">
+                                <a asp-controller="tedarikci" asp-action="tedarikciduzenle" asp-route-id="@item.TedarikciID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a asp-controller="tedarikci" asp-action="tedarikcisil" asp-route-id="@item.TedarikciID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
+                            </div>
+                        </td>
                     </tr>
                 }
             }
@@ -74,7 +81,27 @@
                 <th>İndirim</th>
                 <th>Şirket Notu</th>
                 <th>Güncel Sipariş</th>
+                <th>Düzenle</th>
             </tr>
         </tfoot>
     </table>
 </div>
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!-- DataTable -->
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+            },
+            columnDefs: [{
+                targets: 2,
+                render: function (data, type, row) {
+                    return data.substr(0, 10);
+                }
+            }]
+        });
+    });
+</script>

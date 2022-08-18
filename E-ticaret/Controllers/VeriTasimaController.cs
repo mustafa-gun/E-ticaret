@@ -1,5 +1,4 @@
-﻿using E_ticaret.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace E_ticaret.Controllers
 {
@@ -13,7 +12,7 @@ namespace E_ticaret.Controllers
 
             DateTime CurrentDate = DateTime.Now;
             ViewBag.CurrentDate = CurrentDate.ToString("dd/MM/yyyy");
-            
+
             //Student student = new()
             //{
             //    StudentId = 101,

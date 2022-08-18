@@ -55,7 +55,7 @@
                                             @if (ktg.KategoriID == altMenu.UstKategoriID)
                                             {
                                                 <li>
-                                                    <a class="dropdown-item" href="/menu/detay/@ktg.KategoriID/@altMenu.Id">@altMenu.AltKategoriAdi</a>
+                                                    <a class="dropdown-item" href="@Html.Raw("/menu/detay/" + @ktg.KategoriID + "/" + @altMenu.Id)">@altMenu.AltKategoriAdi</a>
                                                 </li>
                                             }
                                         }

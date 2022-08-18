@@ -1,7 +1,6 @@
 ﻿using E_ticaret.Data;
 using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Web;
 using System.Dynamic;
 
 namespace E_ticaret.Controllers

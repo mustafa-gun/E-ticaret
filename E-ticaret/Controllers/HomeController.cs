@@ -1,10 +1,8 @@
-﻿using E_ticaret.Models;
+﻿using E_ticaret.Data;
+using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Dynamic;
-using System.Text.Json;
-using E_ticaret.Controllers;
-using E_ticaret.Data;
 
 namespace E_ticaret.Controllers
 {
@@ -124,12 +122,12 @@ namespace E_ticaret.Controllers
             return View(getMenu);
         }
 
-       
+
 
         public IActionResult Privacy()
         {
             var getMenu = GetAllMenu();
-            return View(getMenu);   
+            return View(getMenu);
         }
 
 
