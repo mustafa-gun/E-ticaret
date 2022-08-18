@@ -1,2 +1,2 @@
 # E-ticaret
-.Net Core 6 MVC ile E-Ticaret Sitesi Deneme
+ASP.NET Core 6 MVC ile E-Ticaret Sitesi Deneme
