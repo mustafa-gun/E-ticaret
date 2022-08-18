@@ -1,5 +1,10 @@
 using E_ticaret.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -9,7 +14,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 builder.Environment.IsDevelopment();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,6 +22,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+app.UseHsts();
 
 app.UseRouting();
 
@@ -30,7 +36,7 @@ app.MapControllerRoute(name: "default",
 
 app.MapControllerRoute(name: "menu",
                 pattern: "{controller=Menu}/{action=Index}/{id?}",
-                defaults: new { controller = "Menu", action = "Index"});
+                defaults: new { controller = "Menu", action = "Index" });
 
 app.MapControllerRoute(name: "detay",
                 pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
