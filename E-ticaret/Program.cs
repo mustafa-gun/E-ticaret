@@ -36,7 +36,7 @@ app.MapControllerRoute(name: "default",
 
 app.MapControllerRoute(name: "menu",
                 pattern: "{controller=Menu}/{action=Index}/{id?}",
-                defaults: new { controller = "Menu", action = "Index" });
+                defaults: new { controller = "Menu", action = "Index" },);
 
 app.MapControllerRoute(name: "detay",
                 pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
