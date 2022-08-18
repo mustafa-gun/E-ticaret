@@ -1,7 +1,10 @@
 ﻿@model Tedarikci
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Tedarikçi Ekle";
+    object getMenuId = Context.Request.RouteValues["id"];
+    int tedarikciId = Convert.ToInt32(getMenuId);
+    string title = Model.SirketAdi;
+    ViewData["Title"] = "Tedarikçi Düzenle - " + title;
 }
 
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
@@ -9,9 +12,10 @@
 <div class="container">
     <form method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
+        <input asp-for="TedarikciID" hidden />
         <div class="border p-3 mt-4">
             <div class="row pb-2">
-                <h2 class="text-primary">Ürün Ekle</h2>
+                <h2 class="text-primary">Tedarikçi Düzenle  -  @title</h2>
                 <hr />
             </div>
             @*<div asp-validation-summary="All"></div>*@
@@ -71,27 +75,27 @@
                         <span asp-validation-for="SirketNotu" class="text-danger"></span>
                     </div>
                     @*<div class="mb-3 form-floating col-md">
-                        <input asp-for="SKU" class="form-control" id="sku" placeholder="Ürün kodunu girin">
-                        <label for="sku">Ürün kodunu girin</label>
-                        <span asp-validation-for="SKU" class="text-danger"></span>
+                    <input asp-for="SKU" class="form-control" id="sku" placeholder="Ürün kodunu girin">
+                    <label for="sku">Ürün kodunu girin</label>
+                    <span asp-validation-for="SKU" class="text-danger"></span>
                     </div>
                     <div class="mb-3 form-floating">
-                        <textarea class="ckeditor" id="editor1" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
-                       
-                        <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
+                    <textarea class="ckeditor" id="editor1" name="UrunAciklamasi" asp-for="UrunAciklamasi"></textarea>
+
+                    <span asp-validation-for="UrunAciklamasi" class="text-danger"></span>
                     </div>
                     <div class="mb-3 form-floating col-md">
-                        <label asp-for="Gorsel" class="control-label"></label>
-                        <div class="custom-file">
-                            <label class="custom-file-label" for="formFile">Dosya seç</label>
-                            <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
-                        </div>
-                        <span asp-validation-for="Gorsel" class="text-danger"></span>
+                    <label asp-for="Gorsel" class="control-label"></label>
+                    <div class="custom-file">
+                    <label class="custom-file-label" for="formFile">Dosya seç</label>
+                    <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
+                    </div>
+                    <span asp-validation-for="Gorsel" class="text-danger"></span>
                     </div>*@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:150px">Oluştur</button>
+            <button type="submit" class="btn btn-primary" style="width:150px">Kaydet</button>
             <a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
                 Geri Dön
             </a>

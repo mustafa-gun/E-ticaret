@@ -1,5 +1,4 @@
 ﻿namespace E_ticaret.Models;
-using System.Text;
 using System.Text.RegularExpressions;
 
 public static class UrlExtension

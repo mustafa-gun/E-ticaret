@@ -78,3 +78,14 @@
         </div>
     </div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js?render=6LeeiIMhAAAAADJ86tvJTG4ygwf2HSvNKfXhy7sv"></script>
+<script>
+    function onClick(e) {
+        e.preventDefault();
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LeeiIMhAAAAADJ86tvJTG4ygwf2HSvNKfXhy7sv', { action: 'submit' }).then(function (token) {
+                // Add your logic to submit to your backend server here.x
+            });
+        });
+    }
+</script>

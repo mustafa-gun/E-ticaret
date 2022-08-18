@@ -16,13 +16,12 @@
             </a>
         </div>
     </div>
-    <table id="urunTablosu" class="table table-striped" style="width:100%">
+    <table id="datatable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>SKU</th>
                 <th>Ürün Adı</th>
-                <th>Açıklama</th>
                 <th>Ürün Kategorisi</th>
                 <th>Fiyat</th>
                 <th>Stok Durumu</th>
@@ -43,8 +42,7 @@
                     <tr>
                         <td>@item.UrunID</td>
                         <td>@item.SKU</td>
-                        <td>@item.UrunAdi</td>
-                        <td>@item.UrunAciklamasi</td>
+                        <td><p>@Html.Encode(item.UrunAdi)</p></td>
                         <td>@item.UrunKategorisi</td>
                         <td>@item.UrunFiyati</td>
                         <td>@item.StokDurumu</td>
@@ -54,12 +52,12 @@
                         <td>@item.TedarikciID</td>
                         <td>@item.GelisFiyati</td>
                         <td>
-                                <img src="~/@item.GorselURL" class="adminUrunGorseli" />
+                            <img src="~/@Html.Raw(item.GorselURL)" class="adminUrunGorseli" />
                         </td>
                         <td>
                             <div class="w-100 d-flex justify-content-center">
-                                <a asp-controller="tedarikci" asp-action="tedarikciduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
-                                <a asp-controller="tedarikci" asp-action="tedarikcisil" asp-route-id="@item.UrunID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
+                                <a asp-controller="urun" asp-action="urunduzenle" asp-route-id="@item.UrunID" class="btn btn-primary mx-2"> <i class="fa-solid fa-pen-to-square"></i></a>
+                                <a asp-controller="urun" asp-action="urunsil" asp-route-id="@item.UrunID" class="btn btn-danger mx-2"> <i class="fa-solid fa-trash-can"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -71,7 +69,6 @@
                 <th>ID</th>
                 <th>SKU</th>
                 <th>Ürün Adı</th>
-                <th>Açıklama</th>
                 <th>Ürün Kategorisi</th>
                 <th>Fiyat</th>
                 <th>Stok Durumu</th>
@@ -86,3 +83,22 @@
         </tfoot>
     </table>
 </div>
+<!-- jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<!-- DataTable -->
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json'
+            },
+            columnDefs: [{
+                targets: 0,
+                render: function (data, type, row) {
+                    return data.substr(0, 10);
+                }
+            }]
+        });
+    });
+</script>
