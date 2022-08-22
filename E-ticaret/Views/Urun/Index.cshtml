@@ -19,7 +19,6 @@
     <table id="datatable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>SKU</th>
                 <th>Ürün Adı</th>
                 <th>Ürün Kategorisi</th>
@@ -40,7 +39,6 @@
                 @foreach (Urunler item in Model.Urunler)
                 {
                     <tr>
-                        <td>@item.UrunID</td>
                         <td>@item.SKU</td>
                         <td><p>@Html.Encode(item.UrunAdi)</p></td>
                         <td>@item.UrunKategorisi</td>
@@ -66,7 +64,6 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>ID</th>
                 <th>SKU</th>
                 <th>Ürün Adı</th>
                 <th>Ürün Kategorisi</th>

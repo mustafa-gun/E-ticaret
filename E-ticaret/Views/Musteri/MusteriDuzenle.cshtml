@@ -1,0 +1,96 @@
+﻿@model Musteri
+@{  
+    Layout = "_AdminLayout";
+    string title = Model.Adi + " " + Model.Soyadi;
+    ViewData["Title"] = "Düzenle - " + title;
+}
+
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="~/plugins/ckeditor/ckeditor.js"></script>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <input asp-for="MusteriID" hidden />
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Müşteri Düzenle  -  @title</h2>
+                <hr />
+            </div>
+            <div class="row g-2" id="urunEklemeFormu">
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Adi" class="form-control" id="sirketAdi" placeholder="Ürün adını girin">
+                    <label for="sirketAdi">Şirket adı</label>
+                    <span asp-validation-for="Adi" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Soyadi" class="form-control" id="url" placeholder="Geliş fiyatını girin">
+                    <label for="url">Web sitesi</label>
+                    <span asp-validation-for="Soyadi" class="text-danger"></span>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="CepTelefonu" type="text" class="form-control bfh-phone form-control" id="telefon" placeholder="+90 (212) 123-1212" value="" data-format="+90 (ddd) ddd-dddd">
+                        <label for="telefon">Telefon No</label>
+                        <span asp-validation-for="CepTelefonu" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="Ilce" class="form-control" id="fiyat" placeholder="Fiyat girin">
+                        <label for="fiyat">İndirim oranı</label>
+                        <span asp-validation-for="Ilce" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 form-floating col-md mb-3">
+                        <select asp-for="Sehir" id="demo" aria-label="Ödeme yöntemi seçin" data-live-search="true" style="width: 100%">
+                            <option selected>Ödeme yöntemi seçin</option>
+                            <option value="1">Nakit</option>
+                            <option value="2">Taksitli</option>
+                            <option value="3">Çek/Senet</option>
+                            <option value="4">Havale/EFT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="mb-3 form-floating col-md">
+                        <input asp-for="Ulke" class="form-control" id="adres" placeholder="Stok adedi girin">
+                        <label for="adres">Adres</label>
+                        <span asp-validation-for="PostaKodu" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Eposta" class="form-control" id="stok" placeholder="Stok adedi girin">
+                    <label for="stok">Fax</label>
+                    <span asp-validation-for="Eposta" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-floating col-md">
+                    <input asp-for="Eposta" class="form-control" id="stok" placeholder="Stok adedi girin">
+                    <label for="stok">E-posta</label>
+                    <span asp-validation-for="Eposta" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:150px">Kaydet</button>
+            <a asp-controller="musteri" asp-action="index" class="btn btn-secondary" style="width:150px">
+                Geri Dön
+            </a>
+        </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            var b = $("button[role=combobox]");
+            b.addClass("btn-dark");
+            b.addClass("selectInput");
+        }, 100);
+    });
+
+    $(function () {
+        $('select').selectpicker();
+    });
+</script>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

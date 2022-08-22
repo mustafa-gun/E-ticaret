@@ -2,10 +2,8 @@
 
 @{
 	Layout = "_AdminLayout";
-	object getMenuId = Context.Request.RouteValues["id"];
-	int menuId = Convert.ToInt32(getMenuId);
-
-	ViewData["Title"] = "Ürün Sil";
+	string name = Model.UrunAdi;
+	ViewData["Title"] = "Ürün Sil - " + name;
 
 }
 

@@ -1,8 +1,8 @@
 ﻿@model Urunler
 @{
     Layout = "_AdminLayout";
-    object getMenuId = Context.Request.RouteValues["id"];
-    int menuId = Convert.ToInt32(getMenuId);
+    //object getMenuId = Context.Request.RouteValues["id"];
+    //int menuId = Convert.Guid(getMenuId);
     string title = Model.UrunAdi;
     ViewData["Title"] = "Ürün Düzenle - " + title;
 }
