@@ -35,5 +35,39 @@ namespace E_ticaret.Controllers
             var getData = GetData();
             return View(getData);
         }
+
+        public IActionResult MusteriDuzenle(Guid? id)
+        {
+            HttpContext.Session.SetString("id", "session");
+            if (id == null || id.Value == Guid.Empty)
+            {
+                return NotFound();
+            }
+            var urunFromDb = _db.tblMusteri.Find(id);
+            //var categoryFromDbFirst = _db.tblKategori.FirstOrDefault(u=>u.KategoriID==id);
+            //var urunFromDb = _db.tblUrun.SingleOrDefault(u => u.UrunID == id);
+
+            if (urunFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(urunFromDb);
+        }
+        //POST
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult MusteriDuzenle([FromForm] Musteri obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.tblMusteri.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                obj.KayitTarihi = DateTime.Now;
+                _db.SaveChanges();
+                TempData["success"] = "Ürün düzenleme başarılı";
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
     }
 }
