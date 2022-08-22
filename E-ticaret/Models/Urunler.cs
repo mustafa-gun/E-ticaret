@@ -6,7 +6,7 @@ namespace E_ticaret.Models
     public class Urunler
     {
         [Key]
-        public int UrunID { get; set; }
+        public Guid UrunID { get; set; }
         [Required]
         public string SKU { get; set; }
         public string UrunAdi { get; set; }

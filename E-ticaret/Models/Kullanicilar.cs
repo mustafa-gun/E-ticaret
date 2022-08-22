@@ -17,7 +17,7 @@ namespace E_ticaret.Models
 
     public class Musteri
     {
-        public int MusteriID { get; set; }
+        public Guid MusteriID { get; set; }
         public string Adi { get; set; }
         public string Soyadi { get; set; }
         public string Adres1 { get; set; }
