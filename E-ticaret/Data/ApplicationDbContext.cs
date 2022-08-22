@@ -11,7 +11,7 @@ namespace E_ticaret.Data
         public DbSet<AltKategori> tblAltKategori { get; set; }
         public DbSet<Musteri> tblMusteri { get; set; }
         public DbSet<Tedarikci> tblTedarikci { get; set; }
-        public DbSet<Urunler> tblUrunler { get; set; }
+        public DbSet<Urunler> tblUrun { get; set; }
         public DbSet<Yetkili> tblYetkili { get; set; }
 
     }
