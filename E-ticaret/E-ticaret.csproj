@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>E_ticaret</RootNamespace>
     <UserSecretsId>c8773397-cebb-4e34-aa54-08e50a8382d4</UserSecretsId>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <Configurations>Debug;Release;E-ticaret</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
     <PackageReference Include="ckeditor-full" Version="4.19.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
@@ -63,5 +66,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

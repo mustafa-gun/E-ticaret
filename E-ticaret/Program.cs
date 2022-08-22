@@ -15,33 +15,40 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.AddSession();
+
 builder.Environment.IsDevelopment();
 
-//builder.Services.AddHttpLogging(options =>
-//{
-//    //options.LoggingFields = HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestPath;
-//    options.LoggingFields = HttpLoggingFields.All;
-//    options.MediaTypeOptions.AddText("application/javascript");
-//    options.RequestBodyLogLimit = 4096;
-//    options.ResponseBodyLogLimit = 4096;
-//    options.ResponseHeaders.Remove("Content-Type");
-//    options.ResponseHeaders.Remove("Server");
-//});
+builder.Services.AddHttpLogging(options =>
+{
+    //options.LoggingFields = HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestPath;
+    options.LoggingFields = HttpLoggingFields.All;
+    options.MediaTypeOptions.AddText("application/javascript");
+    options.RequestBodyLogLimit = 4096;
+    options.ResponseBodyLogLimit = 4096;
+    options.ResponseHeaders.Remove("Content-Type");
+    options.ResponseHeaders.Remove("Server");
+});
+
 
 var app = builder.Build();
+
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseHttpLogging();
 
-app.UseHsts();
-
 app.UseRouting();
+
+app.UseHsts();
 
 app.UseAuthorization();
 
@@ -57,6 +64,12 @@ app.MapControllerRoute(name: "menu",
 app.MapControllerRoute(name: "detay",
                 pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
                 defaults: new { controller = "Menu", action = "Detay" });
+
+
+app.MapControllerRoute(name: "urun",
+                pattern: "{controller=Urun}/{action=Index}/{id?}",
+                defaults: new { controller = "Urun", action = "Index" });
+
 
 app.MapControllerRoute(name: "admin",
                 pattern: "{controller=Admin}/{action=Kategoriler}/{id?}/{dropdownId?}",
