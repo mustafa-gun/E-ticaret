@@ -19,7 +19,7 @@ namespace E_ticaret.Controllers
 
             IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
             IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
-            IEnumerable<Urunler> urunListesi = _db.tblUrunler.ToList();
+            IEnumerable<Urunler> urunListesi = _db.tblUrun.ToList();
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = objKategori;
@@ -53,7 +53,7 @@ namespace E_ticaret.Controllers
                     await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 }
 
-                _db.tblUrunler.Add(obj);
+                _db.tblUrun.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Ürün ekleme başarılı";
                 return RedirectToAction("Index");
@@ -67,15 +67,15 @@ namespace E_ticaret.Controllers
 
         }
 
-        public IActionResult UrunDuzenle(int? id)
+        public IActionResult UrunDuzenle(Guid? id)
         {
-            if (id == null || id == 0)
+            if (id == null || id.Value == Guid.Empty)
             {
                 return NotFound();
             }
-            var urunFromDb = _db.tblUrunler.Find(id);
+            var urunFromDb = _db.tblUrun.Find(id);
             //var categoryFromDbFirst = _db.tblKategori.FirstOrDefault(u=>u.KategoriID==id);
-            //var urunFromDb = _db.tblUrunler.SingleOrDefault(u => u.UrunID == id);
+            //var urunFromDb = _db.tblUrun.SingleOrDefault(u => u.UrunID == id);
 
             if (urunFromDb == null)
             {
@@ -85,8 +85,8 @@ namespace E_ticaret.Controllers
             return View(urunFromDb);
         }
         //POST
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<ActionResult> UrunDuzenle([FromForm] Urunler obj)
         {
             if (ModelState.IsValid)
@@ -99,7 +99,7 @@ namespace E_ticaret.Controllers
                     string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
                     await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
                 }
-                _db.tblUrunler.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _db.tblUrun.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
                 TempData["success"] = "Ürün düzenleme başarılı";
                 return RedirectToAction("Index");
@@ -107,13 +107,13 @@ namespace E_ticaret.Controllers
             return View(obj);
         }
 
-        public IActionResult UrunSil(int? id)
+        public IActionResult UrunSil(Guid? id)
         {
-            if (id == null || id == 0)
+            if (id == null || id.Value == Guid.Empty)
             {
                 return NotFound();
             }
-            var categoryFromDb = _db.tblUrunler.Find(id);
+            var categoryFromDb = _db.tblUrun.Find(id);
             //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
@@ -127,15 +127,15 @@ namespace E_ticaret.Controllers
         //POST
         [HttpPost, ActionName("UrunSil")]
         [ValidateAntiForgeryToken]
-        public IActionResult UrunSilPOST(int? id)
+        public IActionResult UrunSilPOST(Guid? id)
         {
-            var obj = _db.tblUrunler.Find(id);
+            var obj = _db.tblUrun.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.tblUrunler.Remove(obj);
+            _db.tblUrun.Remove(obj);
             _db.SaveChanges();
             TempData["success"] = "Ürün silme başarılı";
             return RedirectToAction("Index");
