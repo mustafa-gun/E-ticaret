@@ -2,6 +2,7 @@
 using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using System.Linq;
 
 namespace E_ticaret.Controllers
 {
@@ -17,9 +18,9 @@ namespace E_ticaret.Controllers
         public ExpandoObject GetData()
         {
 
-            IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
-            IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
-            IEnumerable<Urunler> urunListesi = _db.tblUrun.ToList();
+            IList<Kategori> objKategori = _db.tblKategori.ToList();
+            IList<AltKategori> altKategoris = _db.tblAltKategori.ToList();
+            IList<Urunler> urunListesi = _db.tblUrun.ToList();
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = objKategori;
@@ -39,12 +40,14 @@ namespace E_ticaret.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> UrunEkle([FromForm] Urunler obj, IFormCollection formValues)
+
+        public async Task<ActionResult> UrunEkle([FromForm] Urunler obj)
         {
             if (ModelState.IsValid && obj.Gorsel != null)
             {
-                if (obj.Gorsel != null)
+                string fileName = obj.Gorsel.FileName;
+                string grs = Path.GetExtension(fileName);
+                if (grs == ".png" || grs == ".jpg" || grs == ".jpeg")
                 {
                     string folder = "images/products/";
                     folder += Guid.NewGuid().ToString() + "_" + obj.Gorsel.FileName;
@@ -52,7 +55,11 @@ namespace E_ticaret.Controllers
                     string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
                     await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 }
-
+                else
+                {
+                    TempData["error"] = "Sadece PNG, JPG ya da JPEG dosyası yükleyebilirsiniz.";
+                    return View();
+                }
                 _db.tblUrun.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Ürün ekleme başarılı";
@@ -63,8 +70,7 @@ namespace E_ticaret.Controllers
                 TempData["error"] = "Görsel ekleyin!";
                 return View();
             }
-            return View(obj);
-
+            return View();
         }
 
         public IActionResult UrunDuzenle(Guid? id)
@@ -85,7 +91,6 @@ namespace E_ticaret.Controllers
             return View(urunFromDb);
         }
         //POST
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<ActionResult> UrunDuzenle([FromForm] Urunler obj)
         {
@@ -126,7 +131,6 @@ namespace E_ticaret.Controllers
         }
         //POST
         [HttpPost, ActionName("UrunSil")]
-        [ValidateAntiForgeryToken]
         public IActionResult UrunSilPOST(Guid? id)
         {
             var obj = _db.tblUrun.Find(id);
