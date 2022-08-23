@@ -39,8 +39,8 @@ namespace E_ticaret.Controllers
         {
             return View();
         }
-        [HttpPost]
 
+        [HttpPost]
         public async Task<ActionResult> UrunEkle([FromForm] Urunler obj)
         {
             if (ModelState.IsValid && obj.Gorsel != null)
