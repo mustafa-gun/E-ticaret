@@ -25,3 +25,5 @@ footerlink a:hover{color:#e4e4e4!important}
 .bootstrap-select{width:100%!important}
 .selectInput{padding:1rem .75rem;background-color:#343a40!important;color:#fff!important;border-color:#6c757d!important}
 tbody>tr>td>p{text-align:center;text-overflow:ellipsis;max-width:100px;white-space:nowrap;overflow:hidden}
+[data-bs-dismiss=modal] {position: absolute;margin: 1em;right: 1em;cursor: pointer;}
+#imagemodal > .modal-dialog {max-width: 800px !important}

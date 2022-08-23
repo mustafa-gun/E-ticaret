@@ -86,26 +86,31 @@
                         <div class="custom-file">
                             <label class="custom-file-label" for="formFile">Dosya seç</label>
                             <input asp-for="Gorsel" class="custom-file-input form-control" type="file" id="formFile">
-                            <input asp-for="GorselURL" type="hidden" value="@Model.GorselURL"/>
+                            <input asp-for="GorselURL" type="hidden" value="@Model.GorselURL" />
                         </div>
                         <span asp-validation-for="Gorsel" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3 form-floating col-md">
                         <a href="#" id="pop" class="btn btn-info">
-                            <img id="imageresource" src="~/@Model.GorselURL" style="width: 0px; height: 0px;">
-                            Click to Enlarge
+                            Ürün Görseli
                         </a>
                         <img src="" class="adminUrunGorseli" />
                     </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" style="width:150px">Kaydet</button>
-            <a asp-controller="urun" asp-action="urunsil" asp-route-id="@Model.UrunID" class="btn btn-danger" style="width:150px">Sil</a>
+            @*<a asp-controller="urun" asp-action="UrunSil" asp-route-id="@Model.UrunID" class="btn btn-danger" style="width:150px">Sil</a>*@
             <a asp-controller="urun" asp-action="index" class="btn btn-secondary" style="width:150px">
                 Geri Dön
             </a>
         </div>
+    </form>
+    <form method="post" asp-action="UrunSil">
+        @Html.AntiForgeryToken()
+        <input asp-for="UrunID" hidden />
+        <button type="submit" class="btn btn-danger" style="width:150px">SİL</button>
+
     </form>
 </div>
 
@@ -115,21 +120,13 @@
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Image preview</h4>
-            </div>
-            <div class="modal-body">
-                <img src="" id="imagepreview" style="width: 400px; height: 264px;">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="text-shadow: 1px 1px 7px black;box-shadow: 0 0 8px 0px black;"></button>
+            <img id="imagepreview" src="~/@Model.GorselURL">
         </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    
+
 <script type="text/javascript">
     $(document).ready(function () {
         setTimeout(function () {
@@ -148,8 +145,9 @@
 
     });
     $(function () {
-        $('.pop').on('click', function () {
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+        $('#pop').on('click', function () {
+            console.log("tıklandı");
+            $('#imagepreview').attr('src', $(this).find('img').attr('src'));
             $('#imagemodal').modal('show');
         });
     });
