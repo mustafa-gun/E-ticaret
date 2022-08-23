@@ -41,6 +41,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
+    <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
