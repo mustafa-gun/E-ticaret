@@ -2,6 +2,7 @@ using E_ticaret.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -9,8 +10,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers(opts =>
+{
+    opts.ReturnHttpNotAcceptable = true;
+}).AddXmlSerializerFormatters();
+
+    
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opts =>
+    {
+        opts.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+    });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
