@@ -3,6 +3,8 @@ using E_ticaret.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace E_ticaret.Controllers
 {
@@ -128,6 +130,33 @@ namespace E_ticaret.Controllers
         {
             var getMenu = GetAllMenu();
             return View(getMenu);
+        }
+
+        public IActionResult Search()
+        {
+            List<Urunler> urunlers = SearchUrunler("");
+            return
+                 View(urunlers);
+        }
+        [HttpPost]
+        public IActionResult Search(string urunAdi)
+        {
+            IEnumerable<Urunler> urunlers = SearchUrunler(urunAdi);
+            return View(urunlers);
+        }
+        private static List<Urunler> SearchUrunler(string urunAdi)
+        {
+            List<Urunler> urunlers = new List<Urunler>();
+            string apiUrl = "http://localhost:5047/api/UrunApi";
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = client.GetAsync(apiUrl + string.Format("/GetUrunler?urunAdi={0}", urunAdi)).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                urunlers = JsonConvert.DeserializeObject<List<Urunler>>(response.Content.ReadAsStringAsync().Result);
+            }
+            return urunlers;
+
         }
 
 

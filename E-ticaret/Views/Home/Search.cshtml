@@ -1,0 +1,37 @@
+﻿@using E_ticaret.Models
+@model IEnumerable<Urunler>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <form method="post" asp-controller="Home" asp-action="Search">
+        <span>Name:</span>
+        <input type="text" name="urunAdi" />
+        <input type="submit" value="Search" />
+    </form>
+    <hr />
+    <table cellpadding="3" cellspacing="2" border="1">
+        <tr>
+            <th>CustomerID</th>
+            <th>ContactName</th>
+            <th>City</th>
+        </tr>
+        @foreach (Urunler urun in Model)
+        {
+            <tr>
+                <td>@urun.SKU</td>
+                <td>@urun.UrunAdi</td>
+                <td>@urun.UrunFiyati</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
