@@ -55,7 +55,6 @@ namespace E_ticaret.Controllers
             return View(urunFromDb);
         }
         //POST
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult MusteriDuzenle([FromForm] Musteri obj)
         {
