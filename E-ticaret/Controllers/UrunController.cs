@@ -9,7 +9,7 @@ namespace E_ticaret.Controllers
     public class UrunController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public UrunController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
