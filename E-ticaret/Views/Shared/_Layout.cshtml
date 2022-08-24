@@ -1,5 +1,9 @@
 ﻿@*@model List<E_ticaret.Models.Menu>*@
 @model dynamic
+@{
+    DateTime CurrentDate = DateTime.Now;
+    ViewData["year"] = CurrentDate.ToString("yyyy");
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +175,7 @@
                 </div>
             </div>
             <div data-test="box" class="sc-iBkjds bvxuqu d-flex justify-content-center align-items-center mx-auto mt-4" style="width: 100%;">
-                <small class="text-center" style="width: 50%;">Copyright © 2022 E-ticaret</small>
+                <small class="text-center" style="width: 50%;">Copyright © @ViewData["year"] E-ticaret</small>
                 <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent p-2">
                     <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-facebook-f"></i>
                 </button>
