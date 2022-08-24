@@ -33,5 +33,23 @@
             </tr>
         }
     </table>
+
+    <br />
+
+    <div class="form/group">
+    <table class="table table-responsive" cellspacing="3" border="1">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UrunAdi)</th>
+            <th>@Html.DisplayNameFor(model => model.UrunFiyati)</th>
+        </tr>
+        @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.UrunAdi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UrunFiyati)</td>
+                </tr>
+            }
+    </table>    
+    </div>
 </body>
 </html>
