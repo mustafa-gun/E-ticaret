@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_ticaret.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Uruns")]
     [ApiController]
     public class UrunApiController : ControllerBase
     {
