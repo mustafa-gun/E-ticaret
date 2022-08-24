@@ -19,7 +19,7 @@ namespace E_ticaret.Controllers
         [HttpGet]
         public IEnumerable<Urunler> GetUrunler(string urunAdi)
         {
-            return (from c in this.db.tblUrun.Take(6)
+            return (from c in this.db.tblUrun
                     where c.UrunAdi.StartsWith(urunAdi) || string.IsNullOrEmpty(urunAdi)
                     select c).ToList();
         }
