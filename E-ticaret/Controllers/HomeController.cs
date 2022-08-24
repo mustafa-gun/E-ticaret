@@ -1,23 +1,46 @@
 ﻿using E_ticaret.Data;
 using E_ticaret.Models;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System;
 
 namespace E_ticaret.Controllers
 {
     public class HomeController : Controller
     {
+        string baseUrl = "http://localhost:5047/api/UrunApi";
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
         {
-            _logger = logger;
             _db = db;
+            _logger = logger;
+            _webHostEnvironment = webHostEnvironment;
         }
+        public ExpandoObject GetData()
+        {
+
+            IList<Kategori> objKategori = _db.tblKategori.ToList();
+            IList<AltKategori> altKategoris = _db.tblAltKategori.ToList();
+            IList<Urunler> urunListesi = _db.tblUrun.ToList();
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = objKategori;
+            mymodel.AltMenu = altKategoris;
+            mymodel.Urunler = urunListesi;
+
+            return mymodel;
+        }
+
         //static readonly IList<AnaMenu> menuList = new List<AnaMenu>
         //{
         //    new AnaMenu { Id = 1, MenuName = "Elektronik", MenuLink = "elektronik" ,
@@ -68,21 +91,14 @@ namespace E_ticaret.Controllers
             //var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
             //var dataAltMenu = JsonSerializer.Deserialize<List<AltMenu>>(TempData["AltMenuler"].ToString());
 
-            //dynamic mymodel = new ExpandoObject();
-            //mymodel.Menu = dataMenu;
-            //mymodel.AltMenu = dataAltMenu;
-
             IEnumerable<Kategori> objKategori = _db.tblKategori.ToList();
             IEnumerable<AltKategori> altKategoris = _db.tblAltKategori.ToList();
+            IEnumerable<Urunler> urunListesi = _db.tblUrun.ToList();
 
             dynamic mymodel = new ExpandoObject();
             mymodel.Menu = objKategori;
             mymodel.AltMenu = altKategoris;
-
-
-            //dynamic mymodel = new ExpandoObject();
-            //mymodel.Menu = GetMenus();
-            //mymodel.AltMenu = GetAltMenus();
+            mymodel.Urunler = urunListesi;
 
             //string serilizedAnaMenu = JsonSerializer.Serialize(mymodel.Menu);
             //TempData["AnaMenuler"] = serilizedAnaMenu;
@@ -124,7 +140,42 @@ namespace E_ticaret.Controllers
             return View(getMenu);
         }
 
+        public async Task<ActionResult> Urun()
+        {
+            var urunlers = GetAllMenu();
+            //List<Urunler> urunlers = new List<Urunler>();
+            using (var client = new HttpClient())
+            {
+                // Passing service base url
+                client.BaseAddress = new Uri(baseUrl);
 
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending requesst to find web api REST service resource GetUrunler using HttpClient
+                var Res = await client.GetAsync("api/Uruns/GetUrunler");
+                try
+                {
+                    Res.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException)
+                {
+
+                    throw;
+                }
+
+                //Checking the response is successful or not whi is sent using HttpClient
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api
+                    var urunResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    urunlers = GetAllMenu();
+                }
+            }
+            return View(urunlers);
+        }
 
         public IActionResult Privacy()
         {
@@ -132,11 +183,43 @@ namespace E_ticaret.Controllers
             return View(getMenu);
         }
 
-        public IActionResult Search()
+        public async Task<ActionResult> Search()
         {
             List<Urunler> urunlers = SearchUrunler("");
-            return
-                 View(urunlers);
+            //return View(urunlers);
+
+            using (var client = new HttpClient())
+            {
+                // Passing service base url
+                client.BaseAddress = new Uri(baseUrl);
+
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                //Sending requesst to find web api REST service resource GetUrunler using HttpClient
+                var Res = await client.GetAsync("api/Uruns/GetUrunler");
+                try
+                {
+                    Res.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException)
+                {
+                    return RedirectToAction("Error");
+                    throw;
+                }
+
+                //Checking the response is successful or not whi is sent using HttpClient
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api
+                    var urunResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response revieced ffrom wweb api and storing idto the Urun list
+                    urunlers = JsonConvert.DeserializeObject<List<Urunler>>(urunResponse);
+                }
+            }
+                return View(urunlers);
         }
         [HttpPost]
         public IActionResult Search(string urunAdi)
