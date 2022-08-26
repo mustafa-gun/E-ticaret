@@ -77,6 +77,14 @@
             </button>
         </div>
     </div>
+    <div class="products">
+        <div class="product-card">
+            @foreach (Urunler item in Model.Urunler)
+            {
+                <a href="/home/urun/@Url.FriendlyUrl(item.UrunAdi)/@item.UrunID"><img src="~/@item.GorselURL" width="150px" /></a>
+            }
+        </div>
+    </div>
 </div>
 <script src="https://www.google.com/recaptcha/api.js?render=6LeeiIMhAAAAADJ86tvJTG4ygwf2HSvNKfXhy7sv"></script>
 <script>
