@@ -10,6 +10,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddControllers(opts =>
 {
     opts.ReturnHttpNotAcceptable = true;
@@ -66,13 +67,15 @@ app.Environment.IsDevelopment();
 
 app.MapControllerRoute(name: "default",
                pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "home",
+               pattern: "{controller=Home}/{action=Urun}/{UrunAdi}/{id?}");
 
 app.MapControllerRoute(name: "menu",
                 pattern: "{controller=Menu}/{action=Index}/{id?}",
                 defaults: new { controller = "Menu", action = "Index" });
 
 app.MapControllerRoute(name: "detay",
-                pattern: "{controller=Menu}/{action=Detay}/{id?}/{dropdownId?}",
+                pattern: "{controller=Menu}/{action=Detay}/{id?}/{KategoriAdi}/{dropdownId?}/{AltKategoriAdi}",
                 defaults: new { controller = "Menu", action = "Detay" });
 
 
