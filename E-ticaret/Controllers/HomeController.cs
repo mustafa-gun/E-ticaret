@@ -85,7 +85,6 @@ namespace E_ticaret.Controllers
         //    };
         //    return altMenus;
         //}
-
         public ExpandoObject GetAllMenu()
         {
             //var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
@@ -155,15 +154,6 @@ namespace E_ticaret.Controllers
 
                 //Sending requesst to find web api REST service resource GetUrunler using HttpClient
                 var Res = await client.GetAsync("api/Uruns/GetUrunler");
-                try
-                {
-                    Res.EnsureSuccessStatusCode();
-                }
-                catch (HttpRequestException)
-                {
-
-                    throw;
-                }
 
                 //Checking the response is successful or not whi is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
@@ -199,15 +189,6 @@ namespace E_ticaret.Controllers
 
                 //Sending requesst to find web api REST service resource GetUrunler using HttpClient
                 var Res = await client.GetAsync("api/Uruns/GetUrunler");
-                try
-                {
-                    Res.EnsureSuccessStatusCode();
-                }
-                catch (HttpRequestException)
-                {
-                    return RedirectToAction("Error");
-                    throw;
-                }
 
                 //Checking the response is successful or not whi is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
