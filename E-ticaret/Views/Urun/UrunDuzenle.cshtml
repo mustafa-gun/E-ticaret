@@ -3,9 +3,12 @@
     Layout = "_AdminLayout";
     //object getMenuId = Context.Request.RouteValues["id"];
     //int menuId = Convert.Guid(getMenuId);
-    string title = Model.UrunAdi;
+    if (Model != null)
+    {
+        string title = Model.UrunAdi;
     ViewData["Title"] = "Ürün Düzenle - " + title;
 }
+<partial name="_Notification" />
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script src="~/plugins/ckeditor/ckeditor.js"></script>
 <div class="container">
