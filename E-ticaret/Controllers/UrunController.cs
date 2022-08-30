@@ -98,11 +98,21 @@ namespace E_ticaret.Controllers
             {
                 if (obj.Gorsel != null)
                 {
-                    string folder = "images/products/";
-                    folder += Guid.NewGuid().ToString() + "_" + obj.Gorsel.FileName;
-                    obj.GorselURL = folder;
-                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-                    await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
+                    string fileName = obj.Gorsel.FileName;
+                    string grs = Path.GetExtension(fileName);
+                    if (grs == ".png" || grs == ".jpg" || grs == ".jpeg")
+                    {
+                        string folder = "images/products/";
+                        folder += Guid.NewGuid().ToString() + "_" + obj.Gorsel.FileName;
+                        obj.GorselURL = folder;
+                        string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                        await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
+                    }
+                    else
+                    {
+                        TempData["error"] = "Sadece PNG, JPG ya da JPEG dosyası yükleyebilirsiniz.";
+                    return View();
+                    }
                 }
                 _db.tblUrun.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _db.SaveChanges();
