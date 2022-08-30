@@ -109,9 +109,25 @@ namespace E_ticaret.Controllers
         }
         public IActionResult Index()
         {
-            Random rnd = new();
-            ViewBag.Rnd1 = rnd.Next(1, 13);
-            ViewBag.Rnd2 = rnd.Next(1, 13);
+            // Veri tabanından rastgele ürün çeker
+            int total = _db.tblUrun.Count();
+            Random r = new Random();
+            int offset = r.Next( 0, total );
+            var result = _db.tblUrun.Skip( offset ).FirstOrDefault();
+            int offset1 = r.Next( 0, total );
+            var result1 = _db.tblUrun.Skip( offset1 ).FirstOrDefault();
+            if (result == result1)
+            {
+                result1 = _db.tblUrun.Skip( offset1 ).FirstOrDefault();
+            }
+
+            ViewBag.Rnd1 = result.GorselURL;
+            ViewBag.Rnd2 = result1.GorselURL;
+
+
+            //Random rnd = new();
+            //ViewBag.Rnd1 = rnd.Next(1, 13);
+            //ViewBag.Rnd2 = rnd.Next(1, 13);
 
             DateTime CurrentDate = DateTime.Now;
             ViewBag.CurrentDate = CurrentDate.ToString("ddMMyyyy");
