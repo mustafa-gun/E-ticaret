@@ -29,7 +29,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Kullanici" asp-action="Index"><i class="fa-solid fa-user"></i> Kullanıcı Adı </a>
+                        <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Index"><i class="fa-solid fa-user"></i> Giriş Yap </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Sepet" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i> Sepet </a>
@@ -49,7 +49,7 @@
                         @foreach (Kategori ktg in Model.Menu)
                         {
                             <li class="nav-item dropdown mx-2">
-                                <a class="nav-link" asp-controller="menu" asp-action="index" asp-route-id="@ktg.KategoriID">@ktg.KategoriAdi</a>
+                                <a class="nav-link" href="/menu/index/@Url.FriendlyUrl(ktg.KategoriAdi)/@ktg.KategoriID">@ktg.KategoriAdi</a>
                                 @if (ktg.AltKategorisiVar == 1)
                                 {
                                     <ul class="dropdown-menu">
