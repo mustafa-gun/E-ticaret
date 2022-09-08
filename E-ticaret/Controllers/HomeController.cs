@@ -4,15 +4,14 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Dynamic;
-using System.Net.Http;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace E_ticaret.Controllers
 {
+    //[Authorize]
+    [IgnoreAntiforgeryToken]
     public class HomeController : Controller
     {
         string baseUrl = "http://localhost:5047/api/UrunApi";
@@ -85,6 +84,7 @@ namespace E_ticaret.Controllers
         //    };
         //    return altMenus;
         //}
+
         public ExpandoObject GetAllMenu()
         {
             //var dataMenu = JsonSerializer.Deserialize<List<Menu>>(TempData["AnaMenuler"].ToString());
@@ -133,8 +133,6 @@ namespace E_ticaret.Controllers
             ViewBag.CurrentDate = CurrentDate.ToString("ddMMyyyy");
             var getMenu = GetAllMenu();
 
-
-
             //string jsonString = new MenuItem();
 
             //List<MenuItem> anaMenu = JsonSerializer.Deserialize<List<MenuItem>>(jsonString);
@@ -154,7 +152,7 @@ namespace E_ticaret.Controllers
             //var getMenu = GetAllMenu();
             return View(getMenu);
         }
-
+        [Authorize]
         public async Task<ActionResult> Urun()
         {
             var urunlers = GetAllMenu();
@@ -168,7 +166,7 @@ namespace E_ticaret.Controllers
                 //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending requesst to find web api REST service resource GetUrunler using HttpClient
+                //Sending request to find web api REST service resource GetUrunler using HttpClient
                 var Res = await client.GetAsync("api/Uruns/GetUrunler");
 
                 //Checking the response is successful or not whi is sent using HttpClient
