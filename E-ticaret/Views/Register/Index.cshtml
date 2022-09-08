@@ -1,0 +1,41 @@
+﻿@model E_ticaret.Models.Musteri
+@{
+    Layout = null;
+}
+
+@ViewBag.Message
+@using (Html.BeginForm( "Index", "Register", FormMethod.Post ))
+{
+    <div class="form-group">
+        <input name="Adi" placeholder="Adi"/>
+    </div>
+    <div class="form-group">
+        <input name="Soyadi" placeholder="Soyadi" />
+    </div>
+    <div class="form-group">
+        <input name="Eposta" placeholder="Eposta" />
+    </div>
+    <div class="form-group">
+        <input name="Adres1" placeholder="Adres1" />
+    </div>
+    <div class="form-group">
+        <input name="Ilce" placeholder="Ilce" />
+    </div>
+    <div class="form-group">
+            <input name="Sehir"  placeholder="Sehir"/>
+    </div>
+    <div class="form-group">
+        <input name="Ulke" placeholder="Ulke" />
+    </div>
+    <div class="form-group">
+        <input name="PostaKodu" placeholder="PostaKodu" />
+    </div>
+    <div class="form-group">
+        <input name="CepTelefonu" placeholder="CepTelefonu" />
+    </div>
+    <div class="form-group">
+        <input name="Sifre" placeholder="Sifre" />
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Kayıt Ol" />
+}
