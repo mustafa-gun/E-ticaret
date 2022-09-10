@@ -2,22 +2,61 @@
 @{
     Layout = null;
 }
-
-@ViewBag.Message
-
-<form method="post">
-    <div>
-        <input asp-for="Eposta" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kullanıcı Girişi</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body,
+        html {margin: 0;padding: 0; height: 100%; background-color: #f3f3f3 !important;}
+            .loginCard {
+                height: 280px;
+                width: 350px;
+                margin-top: auto;
+                margin-bottom: auto;
+                background: #212529;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 10px;
+                box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+                -webkit-box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+                -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                border-radius: 5px;
+                color: #fff ;
+            }
+    </style>
+</head>
+<body>
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="loginCard">
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">E-posta</label>
+                        <input asp-for="Eposta" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Şifre</label>
+                        <input asp-for="Sifre" type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Giriş Yap</button>
+                </form>
+                <div class="mx-auto pt-2">
+                    <a href="/">Ana Sayfaya Dön</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <input asp-for="Sifre" />
-    </div>
-    <input type="submit" id="btnSubmit" class="btn btn-primary" value="Giriş Yap" />
-</form>
-<partial name="_Notification" />
-<p>@ViewData["token1"]</p>
 
-
+</body>
+</html>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 	}
