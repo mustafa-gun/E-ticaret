@@ -1,8 +1,13 @@
 ﻿@*@model List<E_ticaret.Models.Menu>*@
+@using Microsoft.AspNetCore.Http;
 @model dynamic
 @{
     DateTime CurrentDate = DateTime.Now;
-    ViewData["year"] = CurrentDate.ToString("yyyy");
+    ViewData["year"] = CurrentDate.ToString( "yyyy" );
+
+    var ctx = Context.Session.GetString( "accessToken" );
+    ViewBag.Cookie = Context.Request.Cookies["name"];
+
 }
 
 <!DOCTYPE html>
@@ -29,7 +34,15 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Index"><i class="fa-solid fa-user"></i> Giriş Yap </a>
+                        @if (string.IsNullOrEmpty( ctx ))
+                        {
+                            <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="Index"><i class="fa-solid fa-user"></i> Giriş Yap </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-light" asp-area="" asp-controller="Login" asp-action="LogOut" style="text-transform: capitalize"><i class="fa-solid fa-user"></i> @ViewBag.Cookie (Çıkış) </a>
+                        }
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Sepet" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i> Sepet </a>
@@ -45,7 +58,6 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-
                         @foreach (Kategori ktg in Model.Menu)
                         {
                             <li class="nav-item dropdown mx-2">
@@ -113,77 +125,77 @@
         </main>
     </div>
 
-    <footer data-test="footer" class="sc-olbas jbJXOi page-footer shadow text-white bg-dark px-0">
-        <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column mx-auto py-5 container bg-dark" style="width: 90%;">
-            <div data-test="box" class="sc-iBkjds bvxuqu d-flex justify-content-between flex-wrap">
-                <div data-test="box" class="sc-iBkjds bvxuqu">
+    <footer data-test="footer" class="page-footer shadow text-white bg-dark px-0">
+        <div data-test="box" class="d-flex flex-column mx-auto py-5 container bg-dark" style="width: 90%;">
+            <div data-test="box" class="d-flex justify-content-between flex-wrap">
+                <div data-test="box">
                     <a href="/" class="d-flex align-items-center p-0 text-light">
                         <img alt="logo" src="~/images/logo.png" width="30px">
                         <span class="ml-3 h5 font-weight-bold">E-ticaret</span>
                     </a>
                     <p class="my-3" style="width: 250px;">E-ticaret Projesi</p>
                 </div>
-                <div data-test="box" class="sc-iBkjds bvxuqu">
+                <div data-test="box">
                     <p class="h5 mb-4" style="font-weight: 600;">E-ticaret</p>
-                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                    <div data-test="box" class="d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link">
                             <a href="#hakkimizda">Hakkımızda</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#insan-kaynaklari">İnsan Kaynakları</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#iletisim">İletişim</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#kvkk">KVKK</a>
                         </footerlink>
                     </div>
                 </div>
-                <div data-test="box" class="sc-iBkjds bvxuqu">
+                <div data-test="box">
                     <p class="h5 mb-4" style="font-weight: 600;">Kategoriler</p>
-                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                    <div data-test="box" class="d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link">
                             <a href="#">Bilgisayar</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#">Ev Aletleri</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#">Akıllı Telefon</a>
-                        </footerlink><footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        </footerlink><footerlink data-test="footer-link">
                             <a href="#">Moda</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#">Sağlık &amp; Yaşam</a>
                         </footerlink>
                     </div>
                 </div>
-                <div data-test="box" class="sc-iBkjds bvxuqu">
+                <div data-test="box">
                     <p class="h5 mb-4" style="font-weight: 600;">Markalar</p>
-                    <div data-test="box" class="sc-iBkjds bvxuqu d-flex flex-column" style="cursor: pointer; padding: 0px;">
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                    <div data-test="box" class="d-flex flex-column" style="cursor: pointer; padding: 0px;">
+                        <footerlink data-test="footer-link">
                             <a href="#category/apple">Apple</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#category/avon">Avon</a>
                         </footerlink>
-                        <footerlink data-test="footer-link" class="sc-hiMGwR kMsHqY">
+                        <footerlink data-test="footer-link">
                             <a href="#category/samsung">Samsung</a>
                         </footerlink>
                     </div>
                 </div>
             </div>
-            <div data-test="box" class="sc-iBkjds bvxuqu d-flex justify-content-center align-items-center mx-auto mt-4" style="width: 100%;">
+            <div data-test="box" class="d-flex justify-content-center align-items-center mx-auto mt-4" style="width: 100%;">
                 <small class="text-center" style="width: 50%;">Copyright © @ViewData["year"] E-ticaret</small>
-                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent p-2">
-                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-facebook-f"></i>
+                <button data-test="button" type="button" class="p-2">
+                    <i data-test="fa" class="fab fa-facebook-f"></i>
                 </button>
-                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent mx-3 p-2">
-                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-twitter"></i>
+                <button data-test="button" type="button" class="mx-3 p-2">
+                    <i data-test="fa" class="fab fa-twitter"></i>
                 </button>
-                <button data-test="button" type="button" class="sc-papXJ bxkWgs Ripple-parent p-2">
-                    <i data-test="fa" class="sc-gSAPjG lhufkF fab fa-instagram"></i>
+                <button data-test="button" type="button" class="p-2">
+                    <i data-test="fa" class="fab fa-instagram"></i>
                 </button>
             </div>
         </div>
