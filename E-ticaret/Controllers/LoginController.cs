@@ -1,7 +1,10 @@
 ﻿using E_ticaret.Data;
 using E_ticaret.Models;
 using E_ticaret.Security.JWT;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Dynamic;
 
 namespace E_ticaret.Controllers
 {
@@ -14,10 +17,25 @@ namespace E_ticaret.Controllers
             _db = db;
             tokenHelper = new JWTHelper();
         }
+        public ExpandoObject GetData()
+        {
+
+            IList<Kategori> objKategori = _db.tblKategori.ToList();
+            IList<AltKategori> altKategoris = _db.tblAltKategori.ToList();
+            IList<Musteri> objMusteri = _db.tblMusteri.ToList();
+
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Menu = objKategori;
+            mymodel.AltMenu = altKategoris;
+            mymodel.Musteri = objMusteri;
+
+            return mymodel;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -43,6 +61,26 @@ namespace E_ticaret.Controllers
         {
             var paths = HttpContext.Session.GetString( "actions" ) ?? string.Empty;
             HttpContext.Session.SetString( "actions", paths + ";" + action );
+        }
+
+        [Authorize]
+        public IActionResult LogOut()
+        {
+            // Session'ları temizler.
+            HttpContext.Session.Clear();
+
+            // Kullanıcı isminin bulunduğu çerezi temizler.
+            if (Request.Cookies["name"] != null)
+            {
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays( -1 )
+                };
+
+                Response.Cookies.Append( "name", "" ,cookieOptions);
+                Console.WriteLine("Cookie deleted.");
+            }
+            return Redirect("~/Home");
         }
 
 
@@ -81,6 +119,15 @@ namespace E_ticaret.Controllers
                 context.Session.SetString( "Eposta", Eposta );
                 context.Session.SetString( "Sifre", Sifre );
                 context.Session.SetString( "accessToken", token.Token );
+
+                foreach (var musteriBilgi in musteriler)
+                {
+                    if (musteriBilgi.Eposta == Eposta)
+                    {
+                        context.Response.Cookies.Append( "name", musteriBilgi.Adi );
+                    }
+                }
+
                 //Console.WriteLine( token.Token );
                 //RecordInSession( "Login" );
 
