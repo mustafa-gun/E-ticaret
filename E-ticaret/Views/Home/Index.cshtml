@@ -41,10 +41,23 @@
         </div>
         <div class="my-3 row">
             <div class="d-flex justify-content-center product mx-2 py-2 col-sm">
-                <img class="randomProduct" src="~/@(ViewBag.Rnd1)" alt="">
+                @foreach (Urunler item in Model.Urunler)
+                {
+                    if (ViewBag.Rnd1 == item.GorselURL)
+                    {
+                        <a href="/home/urun/@Url.FriendlyUrl(item.UrunAdi)/@item.UrunID"><img class="randomProduct" src="~/@(ViewBag.Rnd1)" alt=""></a>
+                    }
+                }
             </div>
             <div class="d-flex justify-content-center product mx-2 py-2 col-sm">
-                <img class="randomProduct" src="~/@(ViewBag.Rnd2)" alt="">
+                @foreach (Urunler item in Model.Urunler)
+                {
+                    if (ViewBag.Rnd2 == item.GorselURL)
+                    {
+                        <a href="/home/urun/@Url.FriendlyUrl(item.UrunAdi)/@item.UrunID"><img class="randomProduct" src="~/@(ViewBag.Rnd2)" alt=""></a>
+                    }
+                }
+                
             </div>
             <div class="d-flex justify-content-center product mx-2 py-2 col-sm">
                 <img class="productOfDay" src="~/images/products/@(ViewBag.CurrentDate).jpg" alt="Günün Ürünü">
