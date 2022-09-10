@@ -55,8 +55,7 @@ namespace E_ticaret.Controllers
                     string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
                     await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
                 }
-                else
-                {
+                else{
                     TempData["error"] = "Sadece PNG, JPG ya da JPEG dosyası yükleyebilirsiniz.";
                     return View();
                 }
@@ -64,9 +63,7 @@ namespace E_ticaret.Controllers
                 _db.SaveChanges();
                 TempData["success"] = "Ürün ekleme başarılı";
                 return RedirectToAction("Index");
-            }
-            else if (obj.Gorsel == null)
-            {
+            } else if (obj.Gorsel == null) {
                 TempData["error"] = "Görsel ekleyin!";
                 return View();
             }
@@ -76,17 +73,14 @@ namespace E_ticaret.Controllers
         public IActionResult UrunDuzenle(Guid? id)
         {
             if (id == null || id.Value == Guid.Empty)
-            {
                 return NotFound();
-            }
+
             var urunFromDb = _db.tblUrun.Find(id);
             //var categoryFromDbFirst = _db.tblKategori.FirstOrDefault(u=>u.KategoriID==id);
             //var urunFromDb = _db.tblUrun.SingleOrDefault(u => u.UrunID == id);
 
             if (urunFromDb == null)
-            {
                 return NotFound();
-            }
 
             return View(urunFromDb);
         }
@@ -108,10 +102,9 @@ namespace E_ticaret.Controllers
                         string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
                         await obj.Gorsel.CopyToAsync(new FileStream(serverFolder, FileMode.CreateNew));
                     }
-                    else
-                    {
+                    else{
                         TempData["error"] = "Sadece PNG, JPG ya da JPEG dosyası yükleyebilirsiniz.";
-                    return View();
+                        return View();
                     }
                 }
                 _db.tblUrun.Update(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
@@ -125,17 +118,14 @@ namespace E_ticaret.Controllers
         public IActionResult UrunSil(Guid? id)
         {
             if (id == null || id.Value == Guid.Empty)
-            {
                 return NotFound();
-            }
+
             var categoryFromDb = _db.tblUrun.Find(id);
             //var categoryFromDbFirst = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
             if (categoryFromDb == null)
-            {
                 return NotFound();
-            }
 
             return View(categoryFromDb);
         }
@@ -145,9 +135,7 @@ namespace E_ticaret.Controllers
         {
             var obj = _db.tblUrun.Find(id);
             if (obj == null)
-            {
                 return NotFound();
-            }
 
             _db.tblUrun.Remove(obj);
             _db.SaveChanges();
